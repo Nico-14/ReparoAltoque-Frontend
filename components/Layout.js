@@ -11,11 +11,6 @@ export default function Layout({ children }) {
       <title>Create Next App</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-    <style jsx>
-      {
-
-      }
-    </style>
     <header className={`${showMenu ? 'fixed h-full overflow-y-auto content-start' : ''} px-3 py-1 flex flex-wrap z-10 w-full xl:px-8 xl:static xl:h-auto xl:overflow-y-visible`} style={{ backgroundColor: '#F5F6F8' }}>
       <Link href="/">
         <div className="w-4/5 xl:w-auto xl:flex xl:items-center">
@@ -57,7 +52,7 @@ export default function Layout({ children }) {
       </nav>
       <span className={`${showMenu ? 'hidden xl:block' : ''} border-solid w-full border-b-2 border-gray-300 mx-auto mt-2 xl:mt-0`}></span>
     </header>
-    <main className={`${showMenu ? 'overflow-hidden' : ''} px-4 py-6 h-auto flex-grow xl:p-8`}>
+    <main className={`${showMenu ? 'overflow-hidden xl:overflow-visible' : ''} px-4 py-6 h-auto flex-grow xl:p-8`}>
       {children}
     </main>
     {/* <footer className="flex flex-wrap px-4 py-6 lg:px-8 justify-center mt-full">
