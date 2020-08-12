@@ -1,65 +1,41 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Layout from '../components/Layout';
+import Input from '../components/Input';
+import Button from '../components/Button';
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+    <Layout>
+      <div className="flex flex-col space-y-10 lg:space-y-12">
+        <section className="w-full lg:w-2/4">
+          <h1 className="text-3xl font-semibold">Publicá tu servicio de forma gratuita y rápida. O encontrá el servicio que necesites.</h1>
+          <p className="text-lg mt-1">¿Sos profesional? Empezá a publicar tu servicio gratuitamente en menos de 5 minutos.
+          <br />
+          ¿Necesitas hacer un arreglo en tu casa? Buscá el servicio que necesites y encontrá a los trabajadores más cercanos.</p>
+          <div className="w-full mt-8 flex justify-between lg:justify-start">
+            <Button>Publicar servicio</Button>
+            <Button secondary className="lg:ml-16">Buscar servicios</Button>
+          </div>
+        </section>
+        <span className="w-full border-solid border-b-2 border-gray-300 mx-auto"></span>
+        <section className="w-full">
+          <h1 className="text-3xl font-semibold">Es fácil</h1>
+          <h2 className="text-2xl font-semibold text-blue-600">Publicar un servicio sólo te lleva 3 simples pasos</h2>
+          <div className="w-full flex justify-around mt-4 flex-wrap space-y-8 sm:space-y-0">
+            <article className="w-full sm:w-1/4 space-y-1">
+              <h1 className="text-xl font-semibold text-center">Registrate</h1>
+              <p className="text-lg text-center">Creá una cuenta rápidamente usando tu Facebook, tu cuenta de Google o tu correo electrónico.</p>
+            </article>
+            <article className="w-full sm:w-1/4 space-y-1">
+              <h1 className="text-xl font-semibold text-center">Publicá</h1>
+              <p className="text-lg text-center">Publicá tu servicio de forma rápida, sencilla y sin ningún costo.</p>
+            </article>
+            <article className="w-full sm:w-1/4 space-y-1">
+              <h1 className="text-xl font-semibold text-center">Conseguí clientes</h1>
+              <p className="text-lg text-center">Nosotros te vamos a recomendar a los clientes más cercanos que necesiten tu servicio.</p>
+            </article>
+          </div>
+        </section>
+      </div>
+    </Layout >
   )
 }
