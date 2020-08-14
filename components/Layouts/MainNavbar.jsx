@@ -13,6 +13,7 @@ import {
     DropdownItem,
     Row,
     Col,
+    UncontrolledTooltip,
 } from "reactstrap";
 
 import Link from "next/link";
@@ -73,6 +74,26 @@ export default function MainNavbar() {
                             </Link>
                         </NavItem>
 
+                        <NavItem>
+                            <Link href="/trabajadores">
+                                <a className="btn-link nav-link">
+                                    <i
+                                        className="fa fa-heart"
+                                        id="favoritos"
+                                    ></i>
+                                    <span className="nav-link-inner--text d-lg-none">
+                                        Discover
+                                    </span>
+                                </a>
+                            </Link>
+                            <UncontrolledTooltip
+                                delay={0}
+                                placement="bottom"
+                                target="favoritos"
+                            >
+                                Ver lista de Favoritos
+                            </UncontrolledTooltip>
+                        </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
                                 Ingresar / Registrarse

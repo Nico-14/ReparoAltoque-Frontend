@@ -5,9 +5,9 @@ import MainNavbar from "./Layouts/MainNavbar";
 
 export default function Layout({ children }) {
     return (
-        <>
+        <React.Fragment>
             <Head>
-                <title>Create Next App</title>
+                <title>Te lo Reparo al Toque</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <MainNavbar />
@@ -16,6 +16,6 @@ export default function Layout({ children }) {
       <span className="w-full border-solid border-b-2 border-gray-300"></span>
       Footer
     </footer> */}
-        </>
+        </React.Fragment>
     );
 }
