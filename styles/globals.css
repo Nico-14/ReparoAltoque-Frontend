@@ -18,9 +18,3 @@ a {
 html, body, #__next {
   height: 100%;
 }
-
-#__next {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-}
