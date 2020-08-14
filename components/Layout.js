@@ -33,7 +33,7 @@ const NavBar = () => {
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Options
-          </DropdownToggle>
+              </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
                   Option 1
@@ -64,9 +64,5 @@ export default function Layout({ children }) {
     <main>
       {children}
     </main>
-    {/* <footer className="flex flex-wrap px-4 py-6 lg:px-8 justify-center mt-full">
-      <span className="w-full border-solid border-b-2 border-gray-300"></span>
-      Footer
-    </footer> */}
   </>)
 }
