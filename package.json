@@ -12,7 +12,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-hook-form": "^6.3.2",
-    "reactstrap": "^8.5.1"
+    "reactstrap": "^8.5.1",
+    "sass": "^1.26.10"
   },
   "devDependencies": {}
 }

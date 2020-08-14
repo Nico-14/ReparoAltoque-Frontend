@@ -1,4 +1,4 @@
-import '../styles/argon-design-system.min.css'
+import '../styles/scss/argon-design-system.scss'
 import '../styles/font-awesome.css'
 
 function MyApp({ Component, pageProps }) {
