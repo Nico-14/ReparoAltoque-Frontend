@@ -15,6 +15,35 @@ import {
 import { signInWithGoogle } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+function LlamarALaravel() {
+    let rutaBaseApi = "https://reparoaltoque-laravel.herokuapp.com/api/v1";
+
+    let endpointRegitrarUsuario = "/User/create/professional"; // "professional" si es un prefesional, o "client" si es un cliente
+    //la U de User tiene que estar en mayúscula si o si
+
+    fetch(rutaBaseApi + endpointRegitrarUsuario, {
+        method: "post",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email: "email@gmail.com", //éstos 4 puntos son obligatorios
+            name: "gonzalo corvalan",
+            firebaseId: "0iwjlksajlecgouh78900",
+            lineOfWork: 10, // si es 1 es un cliente, 2 el rubro en el que trabaja no está en la lista, entre 3 y 44 es la lista de rubros actual
+        }),
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((error) => {
+            console.log(error);
+            return false;
+        });
+}
+
 export default function Registrarse() {
     const { register, handleSubmit, errors, getValues } = useForm();
     const onSubmit = (data) => {
@@ -129,6 +158,14 @@ export default function Registrarse() {
                                         className="btn btn-success"
                                     />
                                 </FormGroup>
+                            </Col>
+                            <Col md="12">
+                                <button
+                                    className="btn btn-danger"
+                                    onClick={() => LlamarALaravel()}
+                                >
+                                    laravel
+                                </button>
                             </Col>
                             <Col md="12" className="row mt-3">
                                 <Col>
