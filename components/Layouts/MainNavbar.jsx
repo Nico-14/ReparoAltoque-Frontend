@@ -74,6 +74,16 @@ export default function MainNavbar() {
                             </Link>
                         </NavItem>
 
+                        {user?.loggedIn && (
+                            <NavItem className="my-auto">
+                                <Link href="/favoritos">
+                                    <a className="btn-link nav-link">
+                                        Favoritos
+                                    </a>
+                                </Link>
+                            </NavItem>
+                        )}
+
                         <UncontrolledDropdown nav inNavbar className="my-auto">
                             <DropdownToggle nav caret className="py-0">
                                 {user?.loggedIn ? (
@@ -91,16 +101,16 @@ export default function MainNavbar() {
                             <DropdownMenu right className="text-default">
                                 {user?.loggedIn ? null : (
                                     <>
-                                        <DropdownItem>
-                                            <Link href="/ingresar">
+                                        <Link href="/ingresar">
+                                            <DropdownItem>
                                                 <a>Iniciar Sesión</a>
-                                            </Link>
-                                        </DropdownItem>
-                                        <DropdownItem>
-                                            <Link href="/registrarse">
+                                            </DropdownItem>
+                                        </Link>
+                                        <Link href="/registrarse">
+                                            <DropdownItem>
                                                 <a>Registrarse</a>
-                                            </Link>
-                                        </DropdownItem>
+                                            </DropdownItem>
+                                        </Link>
                                         <DropdownItem divider />
                                     </>
                                 )}
