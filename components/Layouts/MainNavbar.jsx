@@ -13,20 +13,20 @@ import {
     DropdownItem,
     Row,
     Col,
-    UncontrolledTooltip,
 } from "reactstrap";
 
 import Link from "next/link";
 
 export default function MainNavbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [user, setUser] = useState({ loggedIn: true }); //Temporal
 
     return (
         <React.Fragment>
             <Navbar
                 // color="primary"
                 dark
-                expand="md"
+                expand="lg"
                 className="fixed-top px-5 py-2"
                 style={{ background: "#1a73e8" }}
             >
@@ -61,57 +61,58 @@ export default function MainNavbar() {
                         </Row>
                     </div>
                     <Nav navbar>
-                        <NavItem>
+                        <NavItem className="my-auto">
                             <Link href="/trabajadores">
                                 <a className="btn-link nav-link">
                                     Trabajadores
                                 </a>
                             </Link>
                         </NavItem>
-                        <NavItem>
+                        <NavItem className="my-auto">
                             <Link href="/servicios">
                                 <a className="btn-link nav-link">Servicios</a>
                             </Link>
                         </NavItem>
 
-                        <NavItem>
-                            <Link href="/trabajadores">
-                                <a className="btn-link nav-link">
-                                    <i
-                                        className="fa fa-heart"
-                                        id="favoritos"
-                                    ></i>
-                                    <span className="nav-link-inner--text d-lg-none">
-                                        Discover
-                                    </span>
-                                </a>
-                            </Link>
-                            <UncontrolledTooltip
-                                delay={0}
-                                placement="bottom"
-                                target="favoritos"
-                            >
-                                Ver lista de Favoritos
-                            </UncontrolledTooltip>
-                        </NavItem>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                Ingresar / Registrarse
+                        <UncontrolledDropdown nav inNavbar className="my-auto">
+                            <DropdownToggle nav caret className="py-0">
+                                {user?.loggedIn ? (
+                                    <img
+                                        src="https://www.pngitem.com/pimgs/m/108-1083736_transparent-discord-icon-png-discord-profile-png-download.png"
+                                        width="40  "
+                                        height="40"
+                                        className="rounded-circle"
+                                    />
+                                ) : (
+                                    "Ingresar / Registrarse"
+                                )}
                             </DropdownToggle>
 
                             <DropdownMenu right className="text-default">
-                                <DropdownItem>
-                                    <Link href="/ingresar">
-                                        <a>Iniciar Sesión</a>
-                                    </Link>
+                                {user?.loggedIn ? null : (
+                                    <>
+                                        <DropdownItem>
+                                            <Link href="/ingresar">
+                                                <a>Iniciar Sesión</a>
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem>
+                                            <Link href="/registrarse">
+                                                <a>Registrarse</a>
+                                            </Link>
+                                        </DropdownItem>
+                                        <DropdownItem divider />
+                                    </>
+                                )}
+                                <DropdownItem
+                                    onClick={() =>
+                                        setUser({ loggedIn: !user.loggedIn })
+                                    }
+                                >
+                                    {user?.loggedIn
+                                        ? "Cerrar Sesión"
+                                        : "Iniciar sesión fake"}
                                 </DropdownItem>
-                                <DropdownItem>
-                                    <Link href="/ingresar">
-                                        <a>Registrarse</a>
-                                    </Link>
-                                </DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem>Cerrar Sesión</DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
                     </Nav>
