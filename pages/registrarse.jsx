@@ -22,24 +22,20 @@ export default function Registrarse() {
     };
     return (
         <>
-            <style jsx>{`
-                form {
-                    min-width: 30%;
-                }
-                @media (max-width: 990px) {
-                    form {
-                        min-width: 90%;
-                    }
-                }
-            `}</style>
             <Layout>
-                <Row className="justify-content-center">
-                    <h1>Crear cuenta</h1>
-                </Row>
-                <Row className="justify-content-center mt-4">
-                    <form noValidate onSubmit={handleSubmit(onSubmit)}>
-                        <Row>
-                            <Col>
+                <Row className="justify-content-center pt-5">
+                    <form
+                        noValidate
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="col-lg-6 mt-5"
+                    >
+                        <Row className="justify-content-center py-5 px-3">
+                            <Col md="12">
+                                <h1 className="title text-center mb-5">
+                                    Registráte en 5 minutos
+                                </h1>
+                            </Col>
+                            <Col md="12">
                                 <FormGroup>
                                     <Input
                                         placeholder="Nombre"
@@ -56,6 +52,8 @@ export default function Registrarse() {
                                         {errors?.name?.message}
                                     </FormFeedback>
                                 </FormGroup>
+                            </Col>
+                            <Col md="12">
                                 <FormGroup>
                                     <Input
                                         placeholder="Email"
@@ -78,6 +76,8 @@ export default function Registrarse() {
                                         {errors?.email?.message}
                                     </FormFeedback>
                                 </FormGroup>
+                            </Col>
+                            <Col md="6">
                                 <FormGroup>
                                     <Input
                                         name="password"
@@ -96,6 +96,8 @@ export default function Registrarse() {
                                         {errors?.password?.message}
                                     </FormFeedback>
                                 </FormGroup>
+                            </Col>
+                            <Col md="6">
                                 <FormGroup>
                                     <Input
                                         name="rePassword"
@@ -119,26 +121,31 @@ export default function Registrarse() {
                                     </FormFeedback>
                                 </FormGroup>
                             </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Button color="success" block>
-                                    Iniciar sesión
-                                </Button>
+                            <Col md="12">
+                                <FormGroup>
+                                    <Input
+                                        type="submit"
+                                        value="Reagistrarse como cliente"
+                                        className="btn btn-success"
+                                    />
+                                </FormGroup>
                             </Col>
-                        </Row>
-                        <Row className="justify-content-center align-items-center">
-                            <Col>
-                                <hr className="w-100"></hr>
+                            <Col md="12" className="row mt-3">
+                                <Col>
+                                    <hr className="w-100"></hr>
+                                </Col>
+                                <Col className="d-flex justify-content-center">
+                                    <p className="text-center align-self-center mb-0">
+                                        O también con
+                                    </p>
+                                </Col>
+                                <Col>
+                                    <hr className="w-100"></hr>
+                                </Col>
                             </Col>
-                            <Col>O ingresá con</Col>
+
                             <Col>
-                                <hr className="w-100"></hr>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Button block color="primary">
+                                <Button block color="facebook" className="mt-4">
                                     <span className="btn-inner--icon mr-2">
                                         <FontAwesomeIcon
                                             icon={["fab", "facebook"]}
@@ -153,8 +160,9 @@ export default function Registrarse() {
                             <Col>
                                 <Button
                                     block
-                                    color="primary"
                                     onClick={() => signInWithGoogle()}
+                                    className="mt-4 text-white"
+                                    style={{ background: "#4285f4" }}
                                 >
                                     <span className="btn-inner--icon mr-2">
                                         <FontAwesomeIcon
