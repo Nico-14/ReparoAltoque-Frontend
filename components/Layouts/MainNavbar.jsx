@@ -19,6 +19,7 @@ import Link from "next/link";
 
 export default function MainNavbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState({ loggedIn: true }) //Temporal
 
   return (
     <React.Fragment>
@@ -59,38 +60,49 @@ export default function MainNavbar() {
               </Col>
             </Row>
           </div>
-          <Nav navbar>
-            <NavItem>
+          <Nav navbar >
+            <NavItem className="my-auto">
               <Link href="/trabajadores">
                 <a className="btn-link nav-link">
                   Trabajadores
-                                </a>
+                </a>
               </Link>
             </NavItem>
-            <NavItem>
+            <NavItem className="my-auto">
               <Link href="/servicios">
                 <a className="btn-link nav-link">Servicios</a>
               </Link>
             </NavItem>
 
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Ingresar / Registrarse
-                            </DropdownToggle>
+            <UncontrolledDropdown nav inNavbar className="my-auto">
+              <DropdownToggle nav caret className="py-0">
+                {
+                  user?.loggedIn ?
+                    <img src="https://www.pngitem.com/pimgs/m/108-1083736_transparent-discord-icon-png-discord-profile-png-download.png" width="40  " height="40" class="rounded-circle" />
+                    : 'Ingresar / Registrarse'
+                }
+              </DropdownToggle>
 
               <DropdownMenu right className="text-default">
-                <DropdownItem>
-                  <Link href="/ingresar">
-                    <a>Iniciar Sesión</a>
-                  </Link>
-                </DropdownItem>
-                <DropdownItem>
-                  <Link href="/registrarse">
-                    <a>Registrarse</a>
-                  </Link>
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Cerrar Sesión</DropdownItem>
+                {
+                  user?.loggedIn ?
+                    null
+                    :
+                    <>
+                      <DropdownItem>
+                        <Link href="/ingresar">
+                          <a>Iniciar Sesión</a>
+                        </Link>
+                      </DropdownItem>
+                      <DropdownItem>
+                        <Link href="/registrarse">
+                          <a>Registrarse</a>
+                        </Link>
+                      </DropdownItem>
+                      <DropdownItem divider />
+                    </>
+                }
+                <DropdownItem onClick={() => setUser({ loggedIn: !user.loggedIn })}>{user?.loggedIn ? 'Cerrar Sesión' : 'Iniciar sesión fake'}</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
