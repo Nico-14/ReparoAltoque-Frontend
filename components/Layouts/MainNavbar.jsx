@@ -26,7 +26,7 @@ export default function MainNavbar() {
       <Navbar
         // color="primary"
         dark
-        expand="md"
+        expand="lg"
         className="fixed-top px-5 py-2"
         style={{ background: "#1a73e8" }}
       >
@@ -78,7 +78,7 @@ export default function MainNavbar() {
               <DropdownToggle nav caret className="py-0">
                 {
                   user?.loggedIn ?
-                    <img src="https://www.pngitem.com/pimgs/m/108-1083736_transparent-discord-icon-png-discord-profile-png-download.png" width="40  " height="40" class="rounded-circle" />
+                    <img src="https://www.pngitem.com/pimgs/m/108-1083736_transparent-discord-icon-png-discord-profile-png-download.png" width="40  " height="40" className="rounded-circle" />
                     : 'Ingresar / Registrarse'
                 }
               </DropdownToggle>

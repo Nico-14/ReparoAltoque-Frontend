@@ -2,6 +2,7 @@ import Layout from "../components/Layout";
 import { useForm } from 'react-hook-form';
 import { Button, Form, FormGroup, Label, FormFeedback, FormText, Input, Row, Col, Container } from 'reactstrap';
 import { signInWithGoogle } from '../firebase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Registrarse() {
   const { register, handleSubmit, errors, getValues } = useForm();
@@ -67,14 +68,27 @@ export default function Registrarse() {
               <Button color='success' block>Iniciar sesión</Button>
             </Col>
           </Row>
-          <Row className="my-3">
-            <Col>
-              <Button block color='default'>Ingresar con Facebook</Button>
-            </Col>
+          <Row className="justify-content-center align-items-center">
+            <Col><hr className="w-100"></hr></Col>
+            <Col>O ingresá con</Col>
+            <Col><hr className="w-100"></hr></Col>
           </Row>
           <Row>
             <Col>
-              <Button block color='default' onClick={() => signInWithGoogle()}>Ingresar con Google</Button>
+              <Button block color='primary'>
+                <span className="btn-inner--icon mr-2">
+                  <FontAwesomeIcon icon={['fab', 'facebook']} size="xl" />
+                </span>
+                <span className="btn-inner--text">Facebook</span>
+              </Button>
+            </Col>
+            <Col>
+              <Button block color='primary' onClick={() => signInWithGoogle()}>
+                <span className="btn-inner--icon mr-2">
+                  <FontAwesomeIcon icon={['fab', 'google']} size="xl" />
+                </span>
+                <span className="btn-inner--text">Google</span>
+              </Button>
             </Col>
           </Row>
         </form>

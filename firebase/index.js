@@ -18,7 +18,7 @@ try {
 }
 
 function signInWithGoogle() {
-  firebase.auth().signInWithPopup(
+  return firebase.auth().signInWithPopup(
     new firebase.auth.GoogleAuthProvider()
   )
 }
