@@ -42,21 +42,16 @@ export default function FormRegistro(props) {
     };
 
     return (
-        <form noValidate onSubmit={handleSubmit(onSubmit)}>
-            <Row>
-                <Col md="12">
-                    {props.typeUser === "client" ? (
-                        <h4 className="title text-center display-4 mb-3">
-                            Registro Clientes
-                        </h4>
-                    ) : (
-                        <h4 className="title text-center text-white display-4 mb-3">
-                            Registro Profesionales
-                        </h4>
-                    )}
-                </Col>
-                <Col md="12">
-                    <FormGroup>
+        <React.Fragment>
+            <form noValidate onSubmit={handleSubmit(onSubmit)}>
+                <FormGroup className="row">
+                    <label
+                        htmlFor="name"
+                        className="col-md-4 col-form-label text-md-right"
+                    >
+                        Nombre Completo:
+                    </label>
+                    <Col md="8">
                         <Input
                             placeholder="Nombre"
                             name="name"
@@ -67,10 +62,16 @@ export default function FormRegistro(props) {
                             })}
                         />
                         <FormFeedback>{errors?.name?.message}</FormFeedback>
-                    </FormGroup>
-                </Col>
-                <Col md="12">
-                    <FormGroup>
+                    </Col>
+                </FormGroup>
+                <FormGroup className="row">
+                    <label
+                        htmlFor="name"
+                        className="col-md-4 col-form-label text-md-right"
+                    >
+                        Email:
+                    </label>
+                    <Col md="8">
                         <Input
                             placeholder="Email"
                             type="email"
@@ -86,10 +87,16 @@ export default function FormRegistro(props) {
                             })}
                         />
                         <FormFeedback>{errors?.email?.message}</FormFeedback>
-                    </FormGroup>
-                </Col>
-                <Col md="6">
-                    <FormGroup>
+                    </Col>
+                </FormGroup>
+                <FormGroup className="row">
+                    <label
+                        htmlFor="name"
+                        className="col-md-4 col-form-label text-md-right"
+                    >
+                        Contraseña y Confirmación:
+                    </label>
+                    <Col md="4" className="pb-3">
                         <Input
                             name="password"
                             type="password"
@@ -101,10 +108,8 @@ export default function FormRegistro(props) {
                             })}
                         />
                         <FormFeedback>{errors?.password?.message}</FormFeedback>
-                    </FormGroup>
-                </Col>
-                <Col md="6">
-                    <FormGroup>
+                    </Col>
+                    <Col md="4">
                         <Input
                             name="rePassword"
                             type="password"
@@ -123,51 +128,78 @@ export default function FormRegistro(props) {
                         <FormFeedback>
                             {errors?.rePassword?.message}
                         </FormFeedback>
-                    </FormGroup>
-                </Col>
-                <Col md="12">
-                    {props.typeUser === "client" ? (
-                        <Button
-                            type="submit"
-                            color="success"
-                            className="col-lg-12"
-                        >
-                            Reagistrarse como cliente
-                        </Button>
-                    ) : (
-                        <Button
-                            type="submit"
-                            color="success"
-                            className="col-lg-12"
-                        >
-                            Reagistrarse como profesional
-                        </Button>
-                    )}
+                    </Col>
+                </FormGroup>
+                <FormGroup className="row">
+                    <label
+                        htmlFor="name"
+                        className="col-md-4 col-form-label text-md-right"
+                    >
+                        En qué categoría estás?
+                    </label>
+                    <Col md="4">
+                        <div className="custom-control custom-radio my-3">
+                            <input
+                                className="custom-control-input"
+                                id="client"
+                                name="custom-radio-2"
+                                type="radio"
+                                defaultChecked
+                            />
+                            <label
+                                className="custom-control-label"
+                                htmlFor="client"
+                            >
+                                Soy Cliente
+                            </label>
+                        </div>
+                    </Col>
+                    <Col md="4">
+                        <div className="custom-control custom-radio my-3">
+                            <input
+                                className="custom-control-input"
+                                id="professional"
+                                name="custom-radio-2"
+                                type="radio"
+                            />
+                            <label
+                                className="custom-control-label"
+                                htmlFor="professional"
+                            >
+                                Soy Profesional
+                            </label>
+                        </div>
+                    </Col>
+                </FormGroup>
+                <Col md="6" className="col-lg-12 text-center">
+                    <Button type="submit" color="success">
+                        registráte ahora
+                    </Button>
                 </Col>
                 <Col md="12">
                     <button
                         className="btn btn-danger"
-                        onClick={() => LlamarALaravel(props.typeUser)}
+                        onClick={() => LlamarALaravel("client")}
                     >
                         laravel
                     </button>
                 </Col>
-                <Col md="12" className="row mt-3 pr-0 pl-3">
-                    <Col>
-                        <hr className="w-100"></hr>
-                    </Col>
-                    <Col md="6" className="d-flex justify-content-center">
-                        <p className="text-center align-self-center mb-0">
-                            O también con
-                        </p>
-                    </Col>
-                    <Col>
-                        <hr className="w-100"></hr>
-                    </Col>
-                </Col>
+            </form>
 
+            <Row>
                 <Col>
-                    <Button block color="facebook" className="mt-4">
+                    <hr className="w-100"></hr>
+                </Col>
+                <Col md="6" className="d-flex justify-content-center">
+                    <p className="text-center align-self-center mb-0">
+                        O también con
+                    </p>
+                </Col>
+                <Col>
+                    <hr className="w-100"></hr>
+                </Col>
+                <Col md="6">
+                    <Button block color="facebook" className="mt-4" size="lg">
                         <span className="btn-inner--icon mr-2">
                             <FontAwesomeIcon
                                 icon={["fab", "facebook"]}
@@ -177,11 +209,12 @@ export default function FormRegistro(props) {
                         <span className="btn-inner--text">Facebook</span>
                     </Button>
                 </Col>
-                <Col>
+                <Col md="6">
                     <Button
                         block
                         onClick={() => signInWithGoogle()}
                         className="mt-4 text-white"
+                        size="lg"
                         style={{
                             background: "#4285f4",
                         }}
@@ -196,6 +229,6 @@ export default function FormRegistro(props) {
                     </Button>
                 </Col>
             </Row>
-        </form>
+        </React.Fragment>
     );
 }
