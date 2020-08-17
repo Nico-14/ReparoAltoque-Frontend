@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import MainNavbar from "./Layouts/MainNavbar";
+import MainFooter from './Layouts/MainFooter';
+import VolverArriba from './Sections/VolverArriba';
 
 export default function Layout({ children, title }) {
   return (
@@ -15,11 +17,9 @@ export default function Layout({ children, title }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainNavbar />
-      <main>
-        {/* <Container className="py-4" fluid> */}
-        {children}
-        {/* </Container> */}
-      </main>
+      <main>{children}</main>
+      <MainFooter />
+      <VolverArriba />
     </>
   );
 }
