@@ -15,6 +15,9 @@ import {
     Col,
 } from "reactstrap";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
 import Link from "next/link";
 
 export default function MainNavbar() {
@@ -78,7 +81,10 @@ export default function MainNavbar() {
                             <NavItem className="my-auto">
                                 <Link href="/favoritos">
                                     <a className="btn-link nav-link">
-                                        Favoritos
+                                        <FontAwesomeIcon icon={faHeart} />
+                                        <span className="nav-link-inner--text d-lg-none">
+                                            Favoritos
+                                        </span>
                                     </a>
                                 </Link>
                             </NavItem>
