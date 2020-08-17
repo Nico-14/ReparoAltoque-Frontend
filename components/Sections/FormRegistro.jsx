@@ -6,12 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from 'next/router'
 
 function LlamarALaravel(typeUser) {
-  let rutaBaseApi = "https://reparoaltoque-laravel.herokuapp.com/api/v1";
-
   let endpointRegitrarUsuario = "/User/create/" + typeUser; // "professional" si es un prefesional, o "client" si es un cliente
   //la U de User tiene que estar en mayúscula si o si
 
-  fetch(rutaBaseApi + endpointRegitrarUsuario, {
+  fetch(process.env.NEXT_PUBLIC_API_URL + endpointRegitrarUsuario, {
     method: "post",
     mode: "cors",
     headers: {
@@ -39,8 +37,30 @@ export default function FormRegistro(props) {
   const router = useRouter();
 
   const onSubmit = (data) => {
-    console.log(data.name)
-    createAccount(data.type, data.email, data.password, data.name).then(user => router.push('/'))
+    createAccount(data.type, data.email, data.password, data.name).then(user => {
+      let endpointRegitrarUsuario = "/User/create/" + data.userType; // "professional" si es un prefesional, o "client" si es un cliente
+      //la U de User tiene que estar en mayúscula si o si
+      fetch(process.env.NEXT_PUBLIC_API_URL + endpointRegitrarUsuario, {
+        method: "post",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user.email, //éstos 4 puntos son obligatorios
+          name: data.displayName || user.displayName,
+          firebaseId: user.id,
+          lineOfWork: 10, // si es 1 es un cliente, 2 el rubro en el que trabaja no está en la lista, entre 3 y 44 es la lista de rubros actual
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    })
   };
 
   return (
@@ -149,9 +169,11 @@ export default function FormRegistro(props) {
               <input
                 className="custom-control-input"
                 id="client"
-                name="custom-radio-2"
+                name="userType"
                 type="radio"
                 defaultChecked
+                value="client"
+                ref={register({ required: true })}
               />
               <label
                 className="custom-control-label"
@@ -166,8 +188,10 @@ export default function FormRegistro(props) {
               <input
                 className="custom-control-input"
                 id="professional"
-                name="custom-radio-2"
+                name="userType"
                 type="radio"
+                value="professional"
+                ref={register({ required: true })}
               />
               <label
                 className="custom-control-label"

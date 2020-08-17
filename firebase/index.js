@@ -29,20 +29,22 @@ const mapUser = (user) => ({ displayName: user.displayName, email: user.email, i
  * @param {string} [email] Email usado registrarse
  * @param {string} [password] Contraseña usada para registrarse
  * @param {string} [displayName] Nombre del usuario usado para registrarse
- * @return {Promise<firebase.auth.UserCredential>}
+ * @return {Promise<{displayName: string, email: string, id: string, photoURL?: string}>}
  */
 const createAccount = (type, email, password, displayName) => {
   if (type == 'FB_SIGN_IN') {
     return firebase.auth().signInWithPopup(
       new firebase.auth.FacebookAuthProvider() //Cambiar a FacebookAuthProvider
     )
+      .then(({ user }) => mapUser(user))
   } else if (type === 'GOOGLE_SIGN_IN') {
     return firebase.auth().signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     )
+      .then(({ user }) => mapUser(user))
   } else {
     return firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(user => user.user.updateProfile({ displayName }))
+      .then(({ user }) => user.updateProfile({ displayName }).then(() => mapUser(user)))
   }
 }
 
