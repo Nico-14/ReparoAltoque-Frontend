@@ -182,7 +182,7 @@ export default function FormRegistro(props) {
             onClick={() => LlamarALaravel("client")}
           >
             laravel
-                    </button>
+          </button>
         </Col>
       </form>
 
@@ -193,7 +193,7 @@ export default function FormRegistro(props) {
         <Col md="6" className="d-flex justify-content-center">
           <p className="text-center align-self-center mb-0">
             O también con
-                    </p>
+          </p>
         </Col>
         <Col>
           <hr className="w-100"></hr>

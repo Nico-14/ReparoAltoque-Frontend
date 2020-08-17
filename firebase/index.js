@@ -21,9 +21,7 @@ try {
  * Convierte el user de firebase en un objeto con los datos necesarios.
  * @param {firebase.User} user 
  */
-function mapUser(user) {
-  return { displayName: user.displayName, email: user.email, id: user.uid, photoURL: photoURL }
-}
+const mapUser = (user) => ({ displayName: user.displayName, email: user.email, id: user.uid, photoURL: user.photoURL })
 
 /**
  * Función para registrarse en Firebase Auth
@@ -32,7 +30,7 @@ function mapUser(user) {
  * @param {string} [password] Contraseña usada para registrarse
  * @return {Promise<firebase.auth.UserCredential>}
  */
-function signIn(type, email, password) {
+const signIn = (type, email, password) => {
   if (type == 'FB_SIGN_IN') {
     return firebase.auth().signInWithPopup(
       new firebase.auth.FacebookAuthProvider() //Cambiar a FacebookAuthProvider
@@ -48,4 +46,19 @@ function signIn(type, email, password) {
   }
 }
 
-export { signIn }
+/**
+ * Observa los cambios de la sesión de Firebase Auth
+ */
+const onAuthStateChange = (callback) =>
+  firebase.auth().onAuthStateChanged(
+    (user) => callback(user ? mapUser(user) : null)
+  );
+
+
+/**
+ * Cerrar sesión
+ */
+const signOut = () => firebase.auth().signOut();
+
+
+export { signIn, signOut, onAuthStateChange }

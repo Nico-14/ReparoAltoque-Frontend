@@ -1,31 +1,33 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import MainNavbar from "./Layouts/MainNavbar";
-import { Container } from "reactstrap";
+import { onAuthStateChange } from '../firebase';
 
 export default function Layout({ children }) {
-    return (
-        <>
-            <style jsx>{`
-                main {
-                    min-height: 100%;
-                }
-            `}</style>
-            <Head>
-                <title>Create Next App</title>
-                <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <MainNavbar />
-            <main>
-                {/* <Container className="py-4" fluid> */}
-                {children}
-                {/* </Container> */}
-            </main>
-            {/* <footer className="flex flex-wrap px-4 py-6 lg:px-8 justify-center mt-full">
-      <span className="w-full border-solid border-b-2 border-gray-300"></span>
-      Footer
-    </footer> */}
-        </>
-    );
+  const [user, setUser] = useState(); //Temporal
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChange((newUser) => setUser(newUser))
+    return () => unsubscribe() //Limpiar el evento en cada
+  }, [])
+
+  return (
+    <>
+      <style jsx>{`
+        main {
+            min-height: 100%;
+        }
+      `}</style>
+      <Head>
+        <title>Create Next App</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <MainNavbar user={user} />
+      <main>
+        {/* <Container className="py-4" fluid> */}
+        {children}
+        {/* </Container> */}
+      </main>
+    </>
+  );
 }
