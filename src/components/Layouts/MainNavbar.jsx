@@ -16,10 +16,11 @@ import {
 } from "reactstrap";
 import Link from "next/link";
 import { signOut } from '../../firebase';
+import { useUser } from '../../context/UserContext';
 
 export default function MainNavbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [user, setUser] = useState(undefined);
+  const user = useUser();
   return (
     <React.Fragment>
       <Navbar
