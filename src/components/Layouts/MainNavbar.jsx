@@ -17,9 +17,9 @@ import {
 import Link from "next/link";
 import { signOut } from '../../firebase';
 
-export default function MainNavbar({ user }) {
+export default function MainNavbar() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [user, setUser] = useState(undefined);
   return (
     <React.Fragment>
       <Navbar

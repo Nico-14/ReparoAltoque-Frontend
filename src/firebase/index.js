@@ -51,7 +51,7 @@ const createAccount = (type, email, password, displayName) => {
 /**
  * Observa los cambios de la sesión de Firebase Auth
  */
-const onAuthStateChange = (callback) =>
+const onAuthStateChanged = (callback) =>
   firebase.auth().onAuthStateChanged(
     (user) => callback(user ? mapUser(user) : null)
   );
@@ -63,4 +63,4 @@ const onAuthStateChange = (callback) =>
 const signOut = () => firebase.auth().signOut();
 
 
-export { createAccount, signOut, onAuthStateChange }
+export { createAccount, signOut, onAuthStateChanged }
