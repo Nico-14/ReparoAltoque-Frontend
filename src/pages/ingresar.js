@@ -10,7 +10,7 @@ export default function ingresar() {
       <div className="main bg-gradient-warning">
         <Container className="pt-8" style={{ minHeight: "100vh" }}>
           <Row className="justify-content-center">
-            <Col md="10">
+            <Col md="8">
               <Card>
                 <CardHeader>
                   <h4 className="title text-primary display-4 mb-0">

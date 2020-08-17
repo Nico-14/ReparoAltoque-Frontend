@@ -56,28 +56,18 @@ export default function FormLogin({ onSubmit }) {
             <FormFeedback>{errors?.password?.message}</FormFeedback>
           </Col>
         </FormGroup>
-        <Row className="justify-content-center mt-2">
+        <Row className="justify-content-center">
           <Button type="submit" color="success">
             Ingresar
           </Button>
         </Row>
       </form>
-      <Row className="align-items-center mt-2">
-        <Col xs="3" md="4">
-          <hr className="w-100"></hr>
-        </Col>
-        <Col>
-          <p className="text-center my-auto">
-            O también con
-          </p>
-        </Col>
-        <Col xs="3" md="4">
-          <hr className="w-100"></hr>
-        </Col>
+      <Row className="align-items-center">
+        <hr className="w-100"></hr>
       </Row>
       <Row>
         <Col md="6">
-          <Button block color="facebook" size="lg" className="mt-2" onClick={() => onSubmit({ type: 'FB_SIGN_IN' })}>
+          <Button block color="facebook" size="lg" onClick={() => onSubmit({ type: 'FB_SIGN_IN' })}>
             <span className="btn-inner--icon mr-2">
               <FontAwesomeIcon
                 icon={["fab", "facebook"]}
@@ -91,7 +81,7 @@ export default function FormLogin({ onSubmit }) {
           <Button
             block
             onClick={() => onSubmit({ type: 'GOOGLE_SIGN_IN' })}
-            className="text-white mt-4 mt-md-2"
+            className="text-white mt-4 mt-md-0"
             size="lg"
             style={{
               background: "#4285f4",
