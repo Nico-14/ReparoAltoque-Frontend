@@ -19,6 +19,7 @@ export default function Home({ posts }) {
       <div className="main" style={{ minHeight: "100vh" }}>
         <SectionWelcome />
         <SectionBuscar />
+        {process.env.NEXT_PUBLIC_API_URL}
         <SectionHorizontalScroll
           titulo="Trabajos a distancia que recomendamos"
           arrayPublicaciones={posts?.aDistanciaFiltrados}

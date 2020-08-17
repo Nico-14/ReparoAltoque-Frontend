@@ -21,7 +21,7 @@ export default function SectionHorizontalScroll({
           overflowX: "scroll",
         }}
       >
-        {arrayPublicaciones.map((publicacion) => (
+        {arrayPublicaciones && arrayPublicaciones.map((publicacion) => (
           <Col
             md="2"
             className="d-inline"
