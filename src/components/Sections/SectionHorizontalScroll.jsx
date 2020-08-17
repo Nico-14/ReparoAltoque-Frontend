@@ -35,7 +35,7 @@ export default function SectionHorizontalScroll({
                 top
               ></CardImg>
               <CardBody>
-                <CardTitle>{publicacion.main__title}</CardTitle>
+                <CardTitle>{publicacion.main_title}</CardTitle>
 
                 <CardText>
                   <small className="text-muted">
