@@ -35,7 +35,7 @@ function mapUser(user) {
 function signIn(type, email, password) {
   if (type == 'FB_SIGN_IN') {
     return firebase.auth().signInWithPopup(
-      new firebase.auth.GoogleAuthProvider() //Cambiar a FacebookAuthProvider
+      new firebase.auth.FacebookAuthProvider() //Cambiar a FacebookAuthProvider
     )
   } else if (type === 'GOOGLE_SIGN_IN') {
     return firebase.auth().signInWithPopup(

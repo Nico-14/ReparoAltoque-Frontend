@@ -199,7 +199,7 @@ export default function FormRegistro(props) {
           <hr className="w-100"></hr>
         </Col>
         <Col md="6">
-          <Button block color="facebook" className="mt-4" size="lg">
+          <Button block color="facebook" className="mt-4" size="lg" onClick={() => signIn('FB_SIGN_IN')}>
             <span className="btn-inner--icon mr-2">
               <FontAwesomeIcon
                 icon={["fab", "facebook"]}
