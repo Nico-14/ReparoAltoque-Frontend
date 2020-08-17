@@ -1,10 +1,9 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
 import { Button, FormGroup, FormFeedback, Input, Row, Col } from "reactstrap";
-
-import { signIn } from "../../firebase";
+import { createAccount } from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from 'next/router'
 
 function LlamarALaravel(typeUser) {
   let rutaBaseApi = "https://reparoaltoque-laravel.herokuapp.com/api/v1";
@@ -37,8 +36,11 @@ function LlamarALaravel(typeUser) {
 
 export default function FormRegistro(props) {
   const { register, handleSubmit, errors, getValues } = useForm();
+  const router = useRouter();
+
   const onSubmit = (data) => {
-    // console.log(errors)
+    console.log(data.name)
+    createAccount(data.type, data.email, data.password, data.name).then(user => router.push('/'))
   };
 
   return (
@@ -50,13 +52,14 @@ export default function FormRegistro(props) {
             className="col-md-4 col-form-label text-md-right"
           >
             Nombre Completo:
-                    </label>
+          </label>
           <Col md="8">
             <Input
+              id="name"
               placeholder="Nombre"
               name="name"
               invalid={"name" in errors}
-              valid={!errors.name && getValues("name")}
+              valid={!errors.name && getValues("name") && true}
               innerRef={register({
                 required: "Escribí tu nombre",
               })}
@@ -66,18 +69,19 @@ export default function FormRegistro(props) {
         </FormGroup>
         <FormGroup className="row">
           <label
-            htmlFor="name"
+            htmlFor="email"
             className="col-md-4 col-form-label text-md-right"
           >
             Email:
-                    </label>
+          </label>
           <Col md="8">
             <Input
+              id="email"
               placeholder="Email"
               type="email"
               name="email"
               invalid={"email" in errors}
-              valid={!errors.email && getValues("email")}
+              valid={!errors.email && getValues("email") && true}
               innerRef={register({
                 required: "Escribí tu email",
                 pattern: {
@@ -91,20 +95,23 @@ export default function FormRegistro(props) {
         </FormGroup>
         <FormGroup className="row">
           <label
-            htmlFor="name"
+            htmlFor="password"
             className="col-md-4 col-form-label text-md-right"
           >
             Contraseña y Confirmación:
                     </label>
           <Col md="4" className="pb-3">
             <Input
+              id="password"
               name="password"
               type="password"
               placeholder="Contraseña"
               invalid={"password" in errors}
-              valid={!errors.password && getValues("password")}
+              valid={!errors.password && getValues("password") && true}
               innerRef={register({
                 required: "Escribí una contraseña",
+                validate: (value) =>
+                  value.length >= 6 || 'La contraseña tiene que tenér al menos 6 carácteres'
               })}
             />
             <FormFeedback>{errors?.password?.message}</FormFeedback>
@@ -116,7 +123,7 @@ export default function FormRegistro(props) {
               placeholder="Repetir contraseña"
               invalid={"rePassword" in errors}
               valid={
-                !errors.rePassword && getValues("rePassword")
+                !errors.rePassword && getValues("rePassword") && true
               }
               innerRef={register({
                 required: "Repetí la contraseña",
@@ -151,7 +158,7 @@ export default function FormRegistro(props) {
                 htmlFor="client"
               >
                 Soy Cliente
-                            </label>
+              </label>
             </div>
           </Col>
           <Col md="4">
@@ -167,14 +174,14 @@ export default function FormRegistro(props) {
                 htmlFor="professional"
               >
                 Soy Profesional
-                            </label>
+               </label>
             </div>
           </Col>
         </FormGroup>
         <Col md="6" className="col-lg-12 text-center">
           <Button type="submit" color="success">
             registráte ahora
-                    </Button>
+          </Button>
         </Col>
         <Col md="12">
           <button
@@ -199,7 +206,7 @@ export default function FormRegistro(props) {
           <hr className="w-100"></hr>
         </Col>
         <Col md="6">
-          <Button block color="facebook" className="mt-4" size="lg" onClick={() => signIn('FB_SIGN_IN')}>
+          <Button block color="facebook" className="mt-4" size="lg" onClick={() => onSubmit({ type: 'FB_SIGN_IN' })}>
             <span className="btn-inner--icon mr-2">
               <FontAwesomeIcon
                 icon={["fab", "facebook"]}
@@ -212,7 +219,7 @@ export default function FormRegistro(props) {
         <Col md="6">
           <Button
             block
-            onClick={() => signIn('GOOGLE_SIGN_IN')}
+            onClick={() => onSubmit({ type: 'GOOGLE_SIGN_IN' })}
             className="mt-4 text-white"
             size="lg"
             style={{
@@ -229,6 +236,6 @@ export default function FormRegistro(props) {
           </Button>
         </Col>
       </Row>
-    </React.Fragment>
+    </React.Fragment >
   );
 }
