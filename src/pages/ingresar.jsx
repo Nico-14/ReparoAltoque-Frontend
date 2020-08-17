@@ -1,8 +1,6 @@
 import Layout from "../components/Layout";
 import { Row, Col, Container, Card, CardBody, CardHeader } from "reactstrap";
 import FormLogin from '../components/Sections/FormLogin';
-import { useUser } from "../context/UserContext";
-import { useEffect } from "react";
 
 export default function ingresar() {
   return (
