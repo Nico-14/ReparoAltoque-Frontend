@@ -3,7 +3,7 @@ import { Row, Col, Button, FormGroup, Input, FormFeedback } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useForm } from 'react-hook-form';
 
-export default function FormLogin({ onSubmit }) {
+export default function FormLogin({ onSubmit, disabled }) {
   const { register, handleSubmit, errors, getValues } = useForm();
   return (
     <>
@@ -22,7 +22,7 @@ export default function FormLogin({ onSubmit }) {
               type="email"
               name="email"
               invalid={"email" in errors}
-              valid={!errors.email && getValues("email") && true}
+              valid={!errors.email && !(!getValues("email"))}
               innerRef={register({
                 required: "Escribí tu email",
                 pattern: {
@@ -48,7 +48,7 @@ export default function FormLogin({ onSubmit }) {
               name="password"
               type="password"
               invalid={"password" in errors}
-              valid={!errors.password && getValues("password") && true}
+              valid={!errors.password && !(!getValues("password"))}
               innerRef={register({
                 required: "Escribí tu contraseña",
               })}
@@ -57,7 +57,7 @@ export default function FormLogin({ onSubmit }) {
           </Col>
         </FormGroup>
         <Row className="justify-content-center">
-          <Button type="submit" color="success">
+          <Button type="submit" color="success" disabled={disabled}>
             Ingresar
           </Button>
         </Row>
@@ -67,7 +67,13 @@ export default function FormLogin({ onSubmit }) {
       </Row>
       <Row>
         <Col md="6">
-          <Button block color="facebook" size="lg" onClick={() => onSubmit({ type: 'FB_SIGN_IN' })}>
+          <Button
+            block
+            color="facebook"
+            size="lg"
+            onClick={() => onSubmit({ type: 'FB_SIGN_IN' })}
+            disabled={disabled}
+          >
             <span className="btn-inner--icon mr-2">
               <FontAwesomeIcon
                 icon={["fab", "facebook"]}
@@ -86,6 +92,7 @@ export default function FormLogin({ onSubmit }) {
             style={{
               background: "#4285f4",
             }}
+            disabled={disabled}
           >
             <span className="btn-inner--icon mr-2">
               <FontAwesomeIcon
@@ -98,7 +105,7 @@ export default function FormLogin({ onSubmit }) {
         </Col>
       </Row>
 
-      <Row className="mt-2 justify-content-center">
+      <Row className="mt-3 justify-content-center">
         <Link href="/registrarse">
           <a>No estás registrado? Registrate</a>
         </Link>

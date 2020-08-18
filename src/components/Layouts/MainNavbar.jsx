@@ -14,12 +14,11 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 import Link from "next/link";
 import { useUser } from '../../context/UserContext';
+import { signOut } from '../../firebase';
 
 export default function MainNavbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -82,10 +81,10 @@ export default function MainNavbar() {
               <NavItem className="my-auto">
                 <Link href="/favoritos">
                   <a className="btn-link nav-link">
-                    <FontAwesomeIcon icon={faHeart} />
+                    <FontAwesomeIcon icon="heart" />
                     <span className="nav-link-inner--text d-lg-none">
                       Favoritos
-                                        </span>
+                    </span>
                   </a>
                 </Link>
               </NavItem>
@@ -96,7 +95,7 @@ export default function MainNavbar() {
                 {
                   user ? (
                     <>
-                      <span className="mr-2 font-weight-bold">{user?.displayName}</span>
+                      <span className="mr-2 font-weight-bold">{user?.displayName || user?.email}</span>
                       <img
                         src={user.photoURL || "https://www.pngitem.com/pimgs/m/108-1083736_transparent-discord-icon-png-discord-profile-png-download.png"}
                         width="40"

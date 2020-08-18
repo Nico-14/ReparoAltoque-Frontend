@@ -32,6 +32,21 @@ const mapUser = (user) => ({ displayName: user.displayName, email: user.email, i
  * @return {Promise<{displayName: string, email: string, id: string, photoURL?: string}>}
  */
 const createAccount = (type, email, password, displayName) => {
+  if (!type)
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(({ user }) => user.updateProfile({ displayName }).then(() => mapUser(user)))
+  else //Si es con fb o google
+    return signIn(type)
+}
+
+/**
+ * Función para registrarse en Firebase Auth
+ * @param {'FB_SIGN_IN'|'GOOGLE_SIGN_IN'|undefined} type Tipo de registro
+ * @param {string} [email] Email usado registrarse
+ * @param {string} [password] Contraseña usada para registrarse
+ * @return {Promise<{displayName: string, email: string, id: string, photoURL?: string}>}
+ */
+const signIn = (type, email, password) => {
   if (type == 'FB_SIGN_IN') {
     return firebase.auth().signInWithPopup(
       new firebase.auth.FacebookAuthProvider() //Cambiar a FacebookAuthProvider
@@ -42,10 +57,9 @@ const createAccount = (type, email, password, displayName) => {
       new firebase.auth.GoogleAuthProvider()
     )
       .then(({ user }) => mapUser(user))
-  } else {
-    return firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(({ user }) => user.updateProfile({ displayName }).then(() => mapUser(user)))
-  }
+  } else
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(({ user }) => mapUser(user));
 }
 
 /**
@@ -62,5 +76,4 @@ const onAuthStateChanged = (callback) =>
  */
 const signOut = () => firebase.auth().signOut();
 
-
-export { createAccount, signOut, onAuthStateChanged }
+export { createAccount, signOut, signIn, onAuthStateChanged }
