@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export default function StarsVote({ stars, size = 'xs' }) {
+export default function StarsVote({ stars, size = '1x' }) {
   return (
     <div className="stars" >
       <style jsx>{`
@@ -8,11 +8,6 @@ export default function StarsVote({ stars, size = 'xs' }) {
           position: relative;
           color: #f0b41b;
         }
-
-        .back_stars {
-          
-        }
-
         .front_stars {
           position: absolute;
           z-index: 14;
@@ -20,26 +15,21 @@ export default function StarsVote({ stars, size = 'xs' }) {
         }
       `}</style>
       <div className="back_stars">
-        <FontAwesomeIcon icon={["far", "star"]} size></FontAwesomeIcon>
-        <FontAwesomeIcon icon={["far", "star"]} size></FontAwesomeIcon>
-        <FontAwesomeIcon icon={["far", "star"]} size></FontAwesomeIcon>
-        <FontAwesomeIcon icon={["far", "star"]} size></FontAwesomeIcon>
-        <FontAwesomeIcon icon={["far", "star"]} size></FontAwesomeIcon>
+        <FontAwesomeIcon icon={["far", "star"]} size={size}></FontAwesomeIcon>
+        <FontAwesomeIcon icon={["far", "star"]} size={size}></FontAwesomeIcon>
+        <FontAwesomeIcon icon={["far", "star"]} size={size}></FontAwesomeIcon>
+        <FontAwesomeIcon icon={["far", "star"]} size={size}></FontAwesomeIcon>
+        <FontAwesomeIcon icon={["far", "star"]} size={size}></FontAwesomeIcon>
       </div>
       <div className="front_stars">
         {
-          [...Array(Math.floor(stars))].map((index) =>
-            <FontAwesomeIcon icon='star' size key={index}></FontAwesomeIcon>)
+          [...Array(Math.floor(stars))].map((_, index) =>
+            <FontAwesomeIcon icon='star' size={size} key={index} >{index}</FontAwesomeIcon>)
         }
         {
-          stars - Math.floor(stars) >= 0.5 && <FontAwesomeIcon icon='star-half' size></FontAwesomeIcon>
+          stars - Math.floor(stars) >= 0.5 && <FontAwesomeIcon icon='star-half' size={size}></FontAwesomeIcon>
         }
-        {/* <FontAwesomeIcon icon='star' size></FontAwesomeIcon>
-        <FontAwesomeIcon icon='star' size></FontAwesomeIcon>
-        <FontAwesomeIcon icon='star' size></FontAwesomeIcon>
-        <FontAwesomeIcon icon='star' size></FontAwesomeIcon>
-        <FontAwesomeIcon icon='star-half' size></FontAwesomeIcon> */}
       </div>
-    </div>
+    </div >
   )
 }

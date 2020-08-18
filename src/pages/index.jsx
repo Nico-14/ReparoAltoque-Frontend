@@ -40,9 +40,7 @@ export async function getServerSideProps() {  //Antes de renderizar la página e
   let res;
   try {
     res = await fetch(process.env.NEXT_PUBLIC_API_URL + indexPostsEndpoint); //Pide a la api los posts
-    console.log(process.env.NEXT_PUBLIC_API_URL + indexPostsEndpoint, res)
     res = await res.json();
-    console.log(res)
   } catch {
   }
   return {
