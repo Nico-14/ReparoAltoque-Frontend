@@ -1,53 +1,49 @@
 import React from "react";
 
-import { Col, Card, CardImg, CardBody, CardText, CardTitle, CardFooter } from "reactstrap";
+import { Col, Card, CardImg, CardBody, CardText, CardTitle } from "reactstrap";
 
-import StarsVote from '../StarsVote';
+import StarsVote from "../StarsVote";
+import CardPublicación from "../Utilidades/CardPublicacion";
 
 export default function SectionHorizontalScroll({
-  titulo,
-  arrayPublicaciones,
-  bgColor,
+    titulo,
+    arrayPublicaciones,
+    bgColor,
 }) {
-  return (
-    <section className={"section mt-6 " + bgColor}>
-      <Col md="12">
-        <h3 className="title text-center display-3 mb-5">{titulo}</h3>
-      </Col>
-      <Col
-        md="12"
-        className="d-flex"
-        style={{
-          overflowX: "scroll",
-        }}
-      >
-        {arrayPublicaciones && arrayPublicaciones.map((publicacion) => (
-          <Col
-            md="2"
-            className="d-inline"
-            style={{ minWidth: "15rem" }}
-            key={publicacion.post_id}
-          >
-            <Card>
-              <CardImg
-                alt="..."
-                src={publicacion.url_img} //No carga la imagen (url_img)
-                top
-              ></CardImg>
-              <CardBody>
-                <CardTitle>{publicacion.main_title}</CardTitle>
-
-                <CardText>
-                  <small className="text-muted">
-                    {publicacion.name}
-                  </small>
-                </CardText>
-                <StarsVote stars={publicacion.current_average_ratings / 2} />
-              </CardBody>
-            </Card>
-          </Col>
-        ))}
-      </Col>
-    </section>
-  );
+    return (
+        <React.Fragment>
+            <style jsx>{`
+                .example::-webkit-scrollbar {
+                    display: none;
+                    background-color: #000 !important;
+                }
+            `}</style>
+            <section className={"section mt-6 " + bgColor}>
+                <Col md="12">
+                    <h3 className="title text-center display-3 mb-5">
+                        {titulo}
+                    </h3>
+                </Col>
+                <Col
+                    md="12"
+                    className="d-flex example"
+                    style={{
+                        overflowX: "scroll",
+                    }}
+                >
+                    {arrayPublicaciones &&
+                        arrayPublicaciones.map((publicacion) => (
+                            <CardPublicación
+                                titulo={publicacion.main_title}
+                                nombre={publicacion.name}
+                                urlImg={publicacion.url_img}
+                                raitings={publicacion.current_average_ratings}
+                                idPost={publicacion.post_id}
+                                key={publicacion.post_id}
+                            />
+                        ))}
+                </Col>
+            </section>
+        </React.Fragment>
+    );
 }
