@@ -20,7 +20,7 @@ export default function CardPublicación({
     idPost,
 }) {
     return (
-        <Col md="2" className="d-inline" style={{ minWidth: "17rem" }}>
+        <Col md="2" className="d-inline" style={{ minWidth: "15rem" }}>
             <Card className="p-3" style={{ borderRadius: "10px" }}>
                 <CardImg
                     alt="..."

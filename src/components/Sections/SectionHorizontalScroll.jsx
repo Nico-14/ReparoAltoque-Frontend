@@ -26,7 +26,7 @@ export default function SectionHorizontalScroll({
                 </Col>
                 <Col
                     md="12"
-                    className="d-flex example"
+                    className="d-flex col-lg-12 example"
                     style={{
                         overflowX: "scroll",
                     }}
