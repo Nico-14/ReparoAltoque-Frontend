@@ -1,68 +1,86 @@
-import React from 'react';
+import React from "react";
 
-import { Container, Row, Col, Card, CardBody, Button } from 'reactstrap';
+import { Container, Row, Col } from "reactstrap";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faUserFriends,
+    faPeopleArrows,
+    faChevronRight,
+    faAddressCard,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function SectionIniciar() {
-  return (
-    <section className="section section-lg pt-5 bg-gradient-success">
-      <Container>
-        <Row className="justify-content-center">
-          <h3 className="display-3 text-center col-lg-12 mb-3 text-white">
-            ¿Cómo empiezo?
-          </h3>
-          <h5 className="text-center mb-5 text-white">
-            Es fácil, publicar tus servicios sólo te lleva 3 simples pasos, ¡Y
-            es gratis!
-          </h5>
-          <Row className="row-grid px-3">
-            <Col lg="4" className="mb-4 mb-lg-0">
-              <Card className="card-lift--hover shadow border-0 mb-0 h-100">
-                <CardBody>
-                  <h5 className="text-primary title display-4">Registráte</h5>
-                  <p className="description mt-3">
-                    Creá una cuenta rápidamente usando tu Facebook, tu cuenta de
-                    Google o tu correo electrónico.
-                  </p>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col lg="4" className="mb-4 mb-lg-0">
-              <Card className="card-lift--hover shadow border-0 mb-0 h-100">
-                <CardBody>
-                  <h6 className="text-success title display-4">Publicá</h6>
-                  <p className="description mt-3">
-                    Publicá tu servicio de forma rápida, sencilla y sin ningún
-                    costo.
-                  </p>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col lg="4">
-              <Card className="card-lift--hover shadow border-0 mb-0 h-100">
-                <CardBody>
-                  <h6 className="text-warning title display-4">
-                    Conseguí Clientes
-                  </h6>
-                  <p className="description mt-3">
-                    Nosotros te vamos a recomendar a los clientes más cercanos
-                    que necesiten tu servicio. Mientras mejores calificaciones
-                    tengas, mayor será tu alcance.
-                  </p>
-                  <div></div>
-                  <Button
-                    className="mt-4"
-                    color="warning"
-                    href="#pablo"
-                    onClick={(e) => e.preventDefault()}
-                  >
-                    registrarse
-                  </Button>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </Row>
-      </Container>
-    </section>
-  );
+    return (
+        <section className="section section-lg pt-5 bg-secondary">
+            <Container>
+                <Row className="justify-content-center">
+                    <h3 className="display-3 text-center col-lg-12 mb-3">
+                        ¿Cómo empiezo?
+                    </h3>
+                    <h5 className="text-center mb-5">
+                        Es fácil, publicar tus servicios sólo te lleva 3 simples
+                        pasos, ¡Y es gratis!
+                    </h5>
+                    <Row className="row-grid px-3">
+                        <Col lg="4" className="mb-4 mb-lg-0">
+                            <div className="info">
+                                <div className="icon icon-lg icon-shape icon-shape-primary shadow rounded-circle">
+                                    <FontAwesomeIcon icon={faUserFriends} />
+                                </div>
+                                <h6 className="info-title text-uppercase text-primary">
+                                    Registráte
+                                </h6>
+                                <p className="description opacity-8">
+                                    Creá una cuenta rápidamente usando tu
+                                    Facebook, tu cuenta de Google o tu correo
+                                    electrónico.
+                                </p>
+                            </div>
+                        </Col>
+                        <Col lg="4" className="mb-4 mb-lg-0">
+                            <div className="info">
+                                <div className="icon icon-lg icon-shape icon-shape-warning shadow rounded-circle">
+                                    <FontAwesomeIcon icon={faAddressCard} />
+                                </div>
+                                <h6 className="info-title text-uppercase text-warning">
+                                    Publicá
+                                </h6>
+                                <p className="description opacity-8">
+                                    Publicá tu servicio de forma rápida,
+                                    sencilla y sin ningún costo.
+                                </p>
+                            </div>
+                        </Col>
+                        <Col lg="4" className="mb-4 mb-lg-0">
+                            <div className="info">
+                                <div className="icon icon-lg icon-shape icon-shape-success shadow rounded-circle">
+                                    <FontAwesomeIcon icon={faPeopleArrows} />
+                                </div>
+                                <h6 className="info-title text-uppercase text-success">
+                                    Conseguí Clientes
+                                </h6>
+                                <p className="description opacity-8">
+                                    Nosotros te vamos a recomendar a los
+                                    clientes más cercanos que necesiten tu
+                                    servicio.
+                                </p>
+                                <a
+                                    href="#pablo"
+                                    onClick={(e) => e.preventDefault()}
+                                    className="text-success"
+                                >
+                                    Registráte Ahora
+                                    <FontAwesomeIcon
+                                        icon={faChevronRight}
+                                        className="ml-1"
+                                    />
+                                </a>
+                            </div>
+                        </Col>
+                    </Row>
+                </Row>
+            </Container>
+        </section>
+    );
 }

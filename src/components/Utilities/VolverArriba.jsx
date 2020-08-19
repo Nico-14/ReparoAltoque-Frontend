@@ -55,7 +55,7 @@ export default class VolverArriba extends React.Component {
                 style={{
                     position: "fixed",
                     bottom: this.state.bottom,
-                    left: "2%",
+                    right: "2%",
                     zIndex: "40",
                 }}
                 onClick={() => this.backToTheTop()}
