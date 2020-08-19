@@ -44,7 +44,7 @@ export default function Home({ posts }) {
 
 export async function getServerSideProps() {
     //Antes de renderizar la página en el server
-    const indexPostsEndpoint = "/Posts/showWelcome";
+    const indexPostsEndpoint = "/Posts/index";
     let res;
     try {
         res = await fetch(process.env.NEXT_PUBLIC_API_URL + indexPostsEndpoint); //Pide a la api los posts
