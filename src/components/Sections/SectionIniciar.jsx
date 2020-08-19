@@ -10,6 +10,8 @@ import {
     faAddressCard,
 } from "@fortawesome/free-solid-svg-icons";
 
+import Link from "next/link";
+
 export default function SectionIniciar() {
     return (
         <section className="section section-lg pt-5 bg-secondary">
@@ -65,17 +67,15 @@ export default function SectionIniciar() {
                                     clientes más cercanos que necesiten tu
                                     servicio.
                                 </p>
-                                <a
-                                    href="#pablo"
-                                    onClick={(e) => e.preventDefault()}
-                                    className="text-success"
-                                >
-                                    Registráte Ahora
-                                    <FontAwesomeIcon
-                                        icon={faChevronRight}
-                                        className="ml-1"
-                                    />
-                                </a>
+                                <Link href="/registrarse">
+                                    <a className="text-success">
+                                        Registráte Ahora
+                                        <FontAwesomeIcon
+                                            icon={faChevronRight}
+                                            className="ml-1"
+                                        />
+                                    </a>
+                                </Link>
                             </div>
                         </Col>
                     </Row>

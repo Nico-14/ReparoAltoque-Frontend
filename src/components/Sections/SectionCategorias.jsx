@@ -10,6 +10,8 @@ import {
     CardTitle,
 } from "reactstrap";
 
+import Link from "next/link";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,7 +31,6 @@ export default function SectionCategorias() {
                         >
                             <div
                                 className="full-background"
-                                style="background-image: "
                                 style={{
                                     background:
                                         "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
@@ -43,7 +44,7 @@ export default function SectionCategorias() {
                                         </h5>
                                     </CardTitle>
                                     <h6 className="card-category text-white opacity-8">
-                                        Albañil
+                                        Albañiles
                                         <br />
                                         <br />
                                         Electricistas
@@ -65,7 +66,6 @@ export default function SectionCategorias() {
                         >
                             <div
                                 className="full-background"
-                                style="background-image: "
                                 style={{
                                     background:
                                         "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
@@ -101,7 +101,6 @@ export default function SectionCategorias() {
                         >
                             <div
                                 className="full-background"
-                                style="background-image: "
                                 style={{
                                     background:
                                         "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
@@ -137,7 +136,6 @@ export default function SectionCategorias() {
                         >
                             <div
                                 className="full-background"
-                                style="background-image: "
                                 style={{
                                     background:
                                         "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
@@ -173,7 +171,6 @@ export default function SectionCategorias() {
                         >
                             <div
                                 className="full-background"
-                                style="background-image: "
                                 style={{
                                     background:
                                         "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
@@ -209,7 +206,6 @@ export default function SectionCategorias() {
                         >
                             <div
                                 className="full-background"
-                                style="background-image: "
                                 style={{
                                     background:
                                         "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
@@ -237,13 +233,17 @@ export default function SectionCategorias() {
                     </Col>
 
                     <Col md="5">
-                        <Button color="primary">
-                            Explorar todas las categorías
-                            <FontAwesomeIcon
-                                icon={faChevronRight}
-                                className="ml-3"
-                            />
-                        </Button>
+                        <Link href="/categorias">
+                            <a className="text-primary">
+                                <Button color="primary">
+                                    Explorar todas las categorías
+                                    <FontAwesomeIcon
+                                        icon={faChevronRight}
+                                        className="ml-3"
+                                    />
+                                </Button>
+                            </a>
+                        </Link>
                     </Col>
                 </Row>
             </Container>

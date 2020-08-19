@@ -51,11 +51,7 @@ export default function CardPublicación({
                     </CardText>
                     <StarsVote stars={raitings / 2} className="mt-auto" />
                 </CardBody>
-                <Button
-                    color="primary"
-                    className="mt-1 ver-publicacion"
-                    // style={{ background: "#3483fa" }}
-                >
+                <Button color="primary" className="mt-1 ver-publicacion">
                     Ver Publicación
                 </Button>
             </Card>
