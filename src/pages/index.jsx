@@ -39,26 +39,24 @@ export default function Home({ posts }) {
             `}</style>
             <Layout>
                 <div className="main" style={{ minHeight: "100vh" }}>
-                    <section style={{ zIndex: 40, marginTop: -50 }}>
-                        <SectionBuscar protitpo={1} />
-                        <SectionCategorias />
+                    <SectionBuscar modeloSeccionBuscar={2} />
+                    <SectionCategorias />
 
-                        <SectionWelcome />
+                    <SectionWelcome />
 
-                        <SectionHorizontalScroll
-                            titulo="Trabajos a distancia que recomendamos"
-                            arrayPublicaciones={posts?.aDistanciaFiltrados}
-                            bgColor="bg-secondary"
-                        />
+                    <SectionHorizontalScroll
+                        titulo="Trabajos a distancia que recomendamos"
+                        arrayPublicaciones={posts?.aDistanciaFiltrados}
+                        bgColor="bg-secondary"
+                    />
 
-                        <SectionHorizontalScroll
-                            titulo="Trabajos a domicilio que recomendamos"
-                            arrayPublicaciones={posts?.presencialesFiltrados}
-                            bgColor="bg-white mt-3"
-                        />
+                    <SectionHorizontalScroll
+                        titulo="Trabajos a domicilio que recomendamos"
+                        arrayPublicaciones={posts?.presencialesFiltrados}
+                        bgColor="bg-white mt-3"
+                    />
 
-                        <SectionIniciar />
-                    </section>
+                    <SectionIniciar />
                 </div>
             </Layout>
         </React.Fragment>

@@ -5,8 +5,8 @@ export default function SectionWelcome() {
     return (
         <section className="section pb-5 bg-gradient-warning">
             <Container>
-                <Row className="row-grid align-items-between pt-5">
-                    <Col className="order-lg-1" lg="6">
+                <Row className="row-grid align-items-between">
+                    <Col lg="6">
                         <h4 className="display-3 text-center mb-0 text-white">
                             ¿Necesitás un profesional?
                         </h4>
@@ -57,7 +57,7 @@ export default function SectionWelcome() {
                             </CardBody>
                         </Card>
                     </Col>
-                    <Col className="order-lg-1" lg="6">
+                    <Col lg="6">
                         <h4 className="display-3 text-center mb-0 text-white">
                             ¿Sos un profesional?
                         </h4>

@@ -13,8 +13,11 @@ import {
     Button,
 } from "reactstrap";
 
-export default function SectionBuscar({ prototipo }) {
-    if (prototipo === 1) {
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+
+export default function SectionBuscar({ modeloSeccionBuscar }) {
+    if (modeloSeccionBuscar == 1) {
         return (
             <React.Fragment>
                 <section className="section section-lg pt-4">
@@ -26,15 +29,6 @@ export default function SectionBuscar({ prototipo }) {
                                         <h3 className="text-white">
                                             Encontrá justo lo que necesitás
                                         </h3>
-                                        <p className="lead text-white mt-3">
-                                            Lorem ipsum dolor sit amet
-                                            consectetur adipisicing elit. Quas
-                                            soluta quod adipisci repudiandae
-                                            inventore recusandae nihil voluptate
-                                            similique delectus? Voluptas neque
-                                            consequuntur eveniet ipsum animi
-                                            aliquid ab suscipit minima fugiat.
-                                        </p>
                                     </Col>
                                     <Col className="ml-lg-auto" lg="12">
                                         <FormGroup className="focused">
@@ -86,14 +80,10 @@ export default function SectionBuscar({ prototipo }) {
                                 <Col className="ml-lg-auto" lg="12">
                                     <FormGroup className="focused">
                                         <InputGroup>
-                                            <InputGroupAddon addonType="prepend">
-                                                <InputGroupText id="basic-addon1">
-                                                    <i className="fa fa-search"></i>
-                                                </InputGroupText>
-                                            </InputGroupAddon>
                                             <Input
                                                 placeholder="En qué te podemos ayudar?"
                                                 type="text"
+                                                style={{ border: "none" }}
                                             ></Input>
                                             <InputGroupAddon addonType="append">
                                                 <Button
@@ -101,7 +91,9 @@ export default function SectionBuscar({ prototipo }) {
                                                     id="button-addon2"
                                                     type="button"
                                                 >
-                                                    Buscar
+                                                    <FontAwesomeIcon
+                                                        icon={faSearch}
+                                                    />
                                                 </Button>
                                             </InputGroupAddon>
                                         </InputGroup>
