@@ -1,14 +1,6 @@
 import React from "react";
 
-import {
-    Container,
-    Row,
-    Button,
-    Col,
-    Card,
-    CardBody,
-    CardTitle,
-} from "reactstrap";
+import { Row, Button, Col } from "reactstrap";
 
 import Link from "next/link";
 
@@ -32,6 +24,11 @@ export default function SectionCategorias() {
                     font-weight: bold;
                     display: table;
                     margin: 0px auto;
+                    transition: 0.2s;
+                }
+                :global(.circle:hover) {
+                    transform: scale(1.1);
+                    cursor: pointer;
                 }
                 :global(.circle p) {
                     vertical-align: middle;
@@ -112,248 +109,93 @@ export default function SectionCategorias() {
                             </p>
                         </div>
                     </Col>
+                    <Col md="12" className="text-right mt-3">
+                        <Link href="/categorias">
+                            <a className="text-primary">
+                                <Button color="primary">
+                                    Explorar todas las categorías
+                                    <FontAwesomeIcon
+                                        icon={faChevronRight}
+                                        className="ml-3"
+                                    />
+                                </Button>
+                            </a>
+                        </Link>
+                    </Col>
+                    <h2 className="display-2 my-5 col-lg-12">
+                        Categrías de Servicios a Distancia
+                    </h2>
                     <Col md="3" className="block pt-4">
-                        <h5 className="mb-3">Diseños y Programas</h5>
+                        <h5>Servicios para el Hogar</h5>
                         <div className="circle">
+                            <br />
                             <p>
-                                Identity Designer
+                                Albañiles
                                 <br />
                                 <br />
-                                Programadores
+                                Electricistas
                                 <br />
                                 <br />
-                                Diseñadores Gráficos
+                                Pintores
                                 <br />
                                 <br />
-                                Diseñadores UI/UX
+                                Servicio de Aires <br /> Acondicionados
                             </p>
                         </div>
                     </Col>
                     <Col md="3" className="block pt-4">
-                        <h5 className="mb-3">Cursos y Clases</h5>
+                        <h5 className="mb-3">Especialistas</h5>
                         <div className="circle">
                             <p>
-                                Profesores <br />
-                                Particulares (Escolar)
+                                Abogados
                                 <br />
                                 <br />
-                                Profesores Particulares <br /> (Universidad)
+                                Contadores
                                 <br />
                                 <br />
-                                Profesores Particulares <br /> (Idiomas)
+                                Arquitectos
+                                <br />
+                                <br />
+                                Traductores
+                            </p>
+                        </div>
+                    </Col>
+                    <Col md="3" className="block pt-4">
+                        <h5 className="mb-3">Mantenimiento</h5>
+                        <div className="circle">
+                            <p>
+                                Gasistas
+                                <br />
+                                <br />
+                                Ascensores
+                                <br />
+                                <br />
+                                Mantenimiento Tanque de Agua
+                                <br />
+                                <br />
+                                Fumigación
+                            </p>
+                        </div>
+                    </Col>
+                    <Col md="3" className="block pt-4">
+                        <h5 className="mb-3">Obras y Construcción</h5>
+                        <div className="circle">
+                            <p>
+                                Durlock
+                                <br />
+                                <br />
+                                Cristaleros
+                                <br />
+                                <br />
+                                Carpinteros
+                                <br />
+                                <br />
+                                Cortinas Metálicas
                             </p>
                         </div>
                     </Col>
 
-                    {/* <Col md="12">
-                        <Card
-                            className="card-blog card-background"
-                            data-animation="zooming"
-                        >
-                            <div
-                                className="full-background"
-                                style={{
-                                    background:
-                                        "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                }}
-                            />
-                            <CardBody>
-                                <div className="content-bottom">
-                                    <CardTitle>
-                                        <h5 className="mb-3 text-white">
-                                            Servicios para el Hogar
-                                        </h5>
-                                    </CardTitle>
-                                    <h6 className="card-category text-white opacity-8">
-                                        Albañiles
-                                        <br />
-                                        <br />
-                                        Electricistas
-                                        <br />
-                                        <br />
-                                        Pintores
-                                        <br />
-                                        <br />
-                                        Servicio de Aires Acondicionados
-                                    </h6>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="3">
-                        <Card
-                            className="card-blog card-background"
-                            data-animation="zooming"
-                        >
-                            <div
-                                className="full-background"
-                                style={{
-                                    background:
-                                        "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                }}
-                            />
-                            <CardBody>
-                                <div className="content-bottom">
-                                    <CardTitle>
-                                        <h5 className="mb-3 text-white">
-                                            Especialistas
-                                        </h5>
-                                    </CardTitle>
-                                    <h6 className="card-category text-white opacity-8">
-                                        Abogados
-                                        <br />
-                                        <br />
-                                        Contadores
-                                        <br />
-                                        <br />
-                                        Arquitectos
-                                        <br />
-                                        <br />
-                                        Traductores
-                                    </h6>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="3">
-                        <Card
-                            className="card-blog card-background"
-                            data-animation="zooming"
-                        >
-                            <div
-                                className="full-background"
-                                style={{
-                                    background:
-                                        "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                }}
-                            />
-                            <CardBody>
-                                <div className="content-bottom">
-                                    <CardTitle>
-                                        <h5 className="mb-3 text-white">
-                                            Mantenimiento
-                                        </h5>
-                                    </CardTitle>
-                                    <h6 className="card-category text-white opacity-8">
-                                        Gasistas
-                                        <br />
-                                        <br />
-                                        Ascensores
-                                        <br />
-                                        <br />
-                                        Mantenimiento Tanque de Agua
-                                        <br />
-                                        <br />
-                                        Fumigación
-                                    </h6>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="3">
-                        <Card
-                            className="card-blog card-background"
-                            data-animation="zooming"
-                        >
-                            <div
-                                className="full-background"
-                                style={{
-                                    background:
-                                        "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                }}
-                            />
-                            <CardBody>
-                                <div className="content-bottom">
-                                    <CardTitle>
-                                        <h5 className="mb-3 text-white">
-                                            Obras y Construcción
-                                        </h5>
-                                    </CardTitle>
-                                    <h6 className="card-category text-white opacity-8">
-                                        Durlock
-                                        <br />
-                                        <br />
-                                        Cristaleros
-                                        <br />
-                                        <br />
-                                        Carpinteros
-                                        <br />
-                                        <br />
-                                        Cortinas Metálicas
-                                    </h6>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="3">
-                        <Card
-                            className="card-blog card-background"
-                            data-animation="zooming"
-                        >
-                            <div
-                                className="full-background"
-                                style={{
-                                    background:
-                                        "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                }}
-                            />
-                            <CardBody>
-                                <div className="content-bottom">
-                                    <CardTitle>
-                                        <h5 className="mb-3 text-white">
-                                            Diseños y Programas
-                                        </h5>
-                                    </CardTitle>
-                                    <h6 className="card-category text-white opacity-8">
-                                        Identity Designer
-                                        <br />
-                                        <br />
-                                        Programadores
-                                        <br />
-                                        <br />
-                                        Diseñadores Gráficos
-                                        <br />
-                                        <br />
-                                        Diseñadores UI/UX
-                                    </h6>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                    <Col md="6">
-                        <Card
-                            className="card-blog card-background"
-                            data-animation="zooming"
-                        >
-                            <div
-                                className="full-background"
-                                style={{
-                                    background:
-                                        "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                }}
-                            />
-                            <CardBody>
-                                <div className="content-bottom">
-                                    <CardTitle>
-                                        <h5 className="mb-3 text-white">
-                                            Cursos y Clases
-                                        </h5>
-                                    </CardTitle>
-                                    <h6 className="card-category text-white opacity-8">
-                                        Profesores Particulares (Escolar)
-                                        <br />
-                                        <br />
-                                        Profesores Particulares (Universidad)
-                                        <br />
-                                        <br />
-                                        Profesores Particulares (Idiomas)
-                                    </h6>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    </Col> */}
-
-                    <Col md="12">
+                    <Col md="12" className="mt-3">
                         <Link href="/categorias">
                             <a className="text-primary">
                                 <Button color="primary">
