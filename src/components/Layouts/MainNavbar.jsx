@@ -13,6 +13,7 @@ import {
   DropdownItem,
   Row,
   Col,
+  Spinner,
 } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -71,7 +72,7 @@ export default function MainNavbar() {
               </Link>
             </NavItem>
 
-            {user && (
+            {user && !user.isLoading && (
               <NavItem className="my-auto">
                 <Link href="/favoritos">
                   <a className="btn-link nav-link">
@@ -82,46 +83,52 @@ export default function MainNavbar() {
               </NavItem>
             )}
 
-            <UncontrolledDropdown nav inNavbar className="my-auto">
-              <DropdownToggle nav caret className={user ? 'py-0' : ''}>
-                {user ? (
-                  <>
-                    <span className="mr-2 font-weight-bold">
-                      {user?.displayName || user?.email}
-                    </span>
-                    <img
-                      src={
-                        user.photoURL ||
-                        'https://www.pngitem.com/pimgs/m/108-1083736_transparent-discord-icon-png-discord-profile-png-download.png'
-                      }
-                      width="40"
-                      height="40"
-                      className="rounded-circle"
-                    />
-                  </>
-                ) : (
-                  'Ingresar / Registrarse'
-                )}
-              </DropdownToggle>
+            {user?.isLoading ? (
+              <NavItem className="my-auto">
+                <Spinner color="white" />
+              </NavItem>
+            ) : (
+              <UncontrolledDropdown nav inNavbar className="my-auto">
+                <DropdownToggle nav caret className={user ? 'py-0' : ''}>
+                  {user ? (
+                    <>
+                      <span className="mr-2 font-weight-bold">
+                        {user?.displayName || user?.email}
+                      </span>
+                      <img
+                        src={
+                          user.photoURL ||
+                          'https://www.pngitem.com/pimgs/m/108-1083736_transparent-discord-icon-png-discord-profile-png-download.png'
+                        }
+                        width="40"
+                        height="40"
+                        className="rounded-circle"
+                      />
+                    </>
+                  ) : (
+                    'Ingresar / Registrarse'
+                  )}
+                </DropdownToggle>
 
-              <DropdownMenu right className="text-default">
-                {!user && (
-                  <>
-                    <Link href="/ingresar">
-                      <DropdownItem>
-                        <a>Iniciar Sesión</a>
-                      </DropdownItem>
-                    </Link>
-                    <Link href="/registrarse">
-                      <DropdownItem>
-                        <a>Registrarse</a>
-                      </DropdownItem>
-                    </Link>
-                  </>
-                )}
-                {user && <DropdownItem onClick={() => signOut()}>Cerrar sesión</DropdownItem>}
-              </DropdownMenu>
-            </UncontrolledDropdown>
+                <DropdownMenu right className="text-default">
+                  {!user && (
+                    <>
+                      <Link href="/ingresar">
+                        <DropdownItem>
+                          <a>Iniciar Sesión</a>
+                        </DropdownItem>
+                      </Link>
+                      <Link href="/registrarse">
+                        <DropdownItem>
+                          <a>Registrarse</a>
+                        </DropdownItem>
+                      </Link>
+                    </>
+                  )}
+                  {user && <DropdownItem onClick={() => signOut()}>Cerrar sesión</DropdownItem>}
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            )}
           </Nav>
         </Collapse>
       </Navbar>

@@ -9,29 +9,29 @@ const reducer = (state, action) => {
     case 'SET_USER':
       return action.payload;
     case 'CHANGE_DISPLAY_NAME':
-      return { ...state, displayName: action.payload }
+      return { ...state, displayName: action.payload };
     default:
       return state;
   }
-}
+};
 
 export const UserProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, null)
+  const [state, dispatch] = useReducer(reducer, { isLoading: true });
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged((newUser) => { //Detectar cambios en firebase.auth
-      setTimeout(dispatch, 600, { type: 'SET_USER', payload: newUser })
-    })
-    return () => unsubscribe() //Limpiar evento
-  }, [dispatch])
+    const unsubscribe = onAuthStateChanged((newUser) => {
+      //Detectar cambios en firebase.auth
+      if (newUser) setTimeout(dispatch, 200, { type: 'SET_USER', payload: newUser });
+      else dispatch({ type: 'SET_USER', payload: null });
+    });
+    return () => unsubscribe(); //Limpiar evento
+  }, [dispatch]);
 
   return (
     <UserDispatchContext.Provider value={dispatch}>
-      <UserContext.Provider value={state}>
-        {children}
-      </UserContext.Provider>
+      <UserContext.Provider value={state}>{children}</UserContext.Provider>
     </UserDispatchContext.Provider>
-  )
-}
+  );
+};
 
 export const useUser = () => useContext(UserContext);
-export const useDispatchUser = () => useContext(UserDispatchContext)
+export const useDispatchUser = () => useContext(UserDispatchContext);
