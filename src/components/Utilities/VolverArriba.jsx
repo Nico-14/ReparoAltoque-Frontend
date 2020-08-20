@@ -1,69 +1,45 @@
-import React from "react";
+import { useState, useEffect } from 'react';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDoubleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons';
 
-export default class VolverArriba extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            bottom: "-20%",
-        };
-    }
+export default function VolverArriba() {
+  const [bottom, setBottom] = useState(-20);
 
-    componentDidMount() {
-        window.addEventListener("scroll", () => {
-            if (window.scrollY >= 1000) {
-                this.setState({
-                    bottom: "2%",
-                });
-            } else {
-                this.setState({
-                    bottom: "-20%",
-                });
-            }
-        });
-    }
+  useEffect(() => {
+    //componentDidMount()
+    const handleScrollEvent = () => {
+      if (window.scrollY + window.innerHeight >= window.innerHeight * 1.5) {
+        setBottom(2);
+      } else {
+        setBottom(-20);
+      }
+    }; //
+    window.addEventListener('scroll', handleScrollEvent);
+    //componentWillUnmount()
+    return () => window.removeEventListener('scroll', handleScrollEvent); //
+  });
 
-    componentWillUnmount() {
-        window.removeEventListener("scroll", () => {
-            if (window.scrollY >= 1000) {
-                this.setState({
-                    bottom: "2%",
-                });
-            } else {
-                this.setState({
-                    bottom: "-20%",
-                });
-            }
-        });
-    }
+  const backToTheTop = () =>
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
 
-    backToTheTop() {
-        window.scrollTo({
-            top: 0,
-            left: 0,
-            behavior: "smooth",
-        });
-    }
-
-    render() {
-        return (
-            <button
-                type="button"
-                className="btn btn-warning"
-                style={{
-                    position: "fixed",
-                    bottom: this.state.bottom,
-                    right: "2%",
-                    zIndex: "40",
-                }}
-                onClick={() => this.backToTheTop()}
-            >
-                <span className="btn-inner--icon">
-                    <FontAwesomeIcon icon={faAngleDoubleUp} size="2x" />
-                </span>
-            </button>
-        );
-    }
+  return (
+    <button type="button" className="btn btn-warning" onClick={() => backToTheTop()}>
+      <style jsx>{`
+        button {
+          position: fixed;
+          bottom: ${bottom}%;
+          right: 2%;
+          z-index: 40;
+        }
+      `}</style>
+      <span className="btn-inner--icon">
+        <FontAwesomeIcon icon={faAngleDoubleUp} size="2x" />
+      </span>
+    </button>
+  );
 }

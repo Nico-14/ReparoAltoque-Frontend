@@ -1,5 +1,6 @@
 import { createContext, useReducer, useContext, useEffect } from 'react';
 import { onAuthStateChanged } from '../firebase';
+import Router from 'next/router';
 
 const UserContext = createContext();
 const UserDispatchContext = createContext();
@@ -16,7 +17,8 @@ const reducer = (state, action) => {
 };
 
 export const UserProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, { isLoading: true });
+  const [user, dispatch] = useReducer(reducer, { isLoading: true });
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged((newUser) => {
       //Detectar cambios en firebase.auth
@@ -25,10 +27,18 @@ export const UserProvider = ({ children }) => {
     });
     return () => unsubscribe(); //Limpiar evento
   }, [dispatch]);
-
+  /*
+  useEffect(() => {
+    const handleRouteChangeStart = (url) => {
+      console.log(url);
+    };
+    Router.events.on('routeChangeStart', handleRouteChangeStart);
+    return () => Router.events.off('routeChangeStart', handleRouteChangeStart);
+  }, [user]);
+*/
   return (
     <UserDispatchContext.Provider value={dispatch}>
-      <UserContext.Provider value={state}>{children}</UserContext.Provider>
+      <UserContext.Provider value={user}>{children}</UserContext.Provider>
     </UserDispatchContext.Provider>
   );
 };
