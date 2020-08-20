@@ -16,7 +16,7 @@ export default function SectionHorizontalScroll({
                     </h3>
                 </div>
                 <div
-                    className="col-lg-12 d-flex pt-3"
+                    className="col-lg-12 d-flex pt-4"
                     style={{
                         overflowX: "scroll",
                     }}

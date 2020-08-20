@@ -17,11 +17,11 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function SectionCategorias() {
     return (
-        <section className="section bg-secondary mt-6">
+        <section className="section" style={{ marginTop: "-8%" }}>
             <Container>
                 <Row>
-                    <h2 className="display-2 mb-5 col-lg-12 text-center">
-                        Categrías de Servicios
+                    <h2 className="display-2 mb-5 col-lg-12 text-right">
+                        Categrías de Servicios a Domicilio
                     </h2>
 
                     <Col md="6">

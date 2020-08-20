@@ -19,8 +19,8 @@ export default class Categorias extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rubrosEspecializados: [],
-            rubrosGenerales: [],
+            subCategories: [],
+            todosLosRubros: [],
             cargando: true,
             error: false,
         };
@@ -30,10 +30,12 @@ export default class Categorias extends React.Component {
     }
 
     getLineWorks = async () => {
-        await fetch(process.env.NEXT_PUBLIC_API_URL + "/LineWork/index")
+        await fetch(
+            process.env.NEXT_PUBLIC_API_URL + "/LineWork/selectBySubcategory"
+        )
             .then((res) => res.json())
             .then((data) => {
-                this.separarArray(data.rubros);
+                this.separarArray(data.subCategories);
             })
             .catch((error) => {
                 console.log(error);
@@ -45,21 +47,61 @@ export default class Categorias extends React.Component {
     };
 
     separarArray = (arrayRubros) => {
-        let rubrosGenerales = [];
+        // let rubrosGenerales = [];
 
-        let rubrosEspecializados = [];
+        // let rubrosEspecializados = [];
 
-        arrayRubros.forEach((rubro) => {
-            if (rubro.specialized === "Rubros Especializados") {
-                rubrosEspecializados.push(rubro);
-            } else if (rubro.specialized === "Rubros Generales") {
-                rubrosGenerales.push(rubro);
+        // arrayRubros.forEach((rubro) => {
+        //     if (rubro.specialized === "Rubros Especializados") {
+        //         rubrosEspecializados.push(rubro);
+        //     } else if (rubro.specialized === "Rubros Generales") {
+        //         rubrosGenerales.push(rubro);
+        //     }
+        // });
+
+        // this.setState({
+        //     rubrosEspecializados,
+        //     rubrosGenerales,
+        //     cargando: false,
+        // });
+        // let arrayReducido = arrayRubros.reduce((subcategorias, rubro) => {
+        //     if (rubro.sub_category in subcategorias) {
+        //         subcategorias[rubro.sub_category].push(rubro);
+        //     } else {
+        //         subcategorias[rubro.sub_category] = [rubro];
+        //     }
+        //     return subcategorias;
+        // }, {});
+
+        const subCategorias = arrayRubros.reduce((subcategorias, rubro) => {
+            const subcategoryIndex = subcategorias.findIndex(
+                (grupo) => grupo[0].sub_category === rubro.sub_category
+            );
+            if (subcategoryIndex === -1) {
+                subcategorias.push([rubro]);
+            } else {
+                subcategorias[subcategoryIndex].push(rubro);
             }
-        });
+            return subcategorias;
+        }, []);
+
+        subCategorias.shift();
+
+        const todosLosRubros = arrayRubros.reduce((subcategorias, rubro) => {
+            const subcategoryIndex = subcategorias.findIndex(
+                (grupo) => grupo[0].specialized === rubro.specialized
+            );
+            if (subcategoryIndex === -1) {
+                subcategorias.push([rubro]);
+            } else {
+                subcategorias[subcategoryIndex].push(rubro);
+            }
+            return subcategorias;
+        }, []);
 
         this.setState({
-            rubrosEspecializados,
-            rubrosGenerales,
+            subCategories: subCategorias,
+            todosLosRubros: todosLosRubros,
             cargando: false,
         });
     };
@@ -69,363 +111,76 @@ export default class Categorias extends React.Component {
             <Layout title="ReparoAltoque - Elegí tu Rubro">
                 <div className="main bg-secondary">
                     <Container className="pt-7">
-                        <Row>
+                        <Row className="justify-content-center">
                             <h1 className="title text-center display-3 col-lg-12 mt-3">
                                 Todas las Categorías de Servicios
                             </h1>
-                            <Col md="12" className="mt-5">
-                                <Card
-                                    className="full-background"
-                                    data-animation="zooming"
-                                    style={{
-                                        background:
-                                            "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                    }}
-                                >
-                                    <CardBody>
-                                        <h5 className="text-white text-center mb-0 display-4">
-                                            Servicios para el Hogar
-                                        </h5>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Albañiles
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Electricistas
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Pintores
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Servicios de Aires
-                                                Acondicionados
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="12" className="mt-5">
-                                <Card
-                                    className="full-background"
-                                    data-animation="zooming"
-                                    style={{
-                                        background:
-                                            "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                    }}
-                                >
-                                    <CardBody>
-                                        <h5 className="text-white text-center mb-0 display-4">
-                                            Especialistas
-                                        </h5>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Abogados
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Contadores
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Arquitectos
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Traductores
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="12" className="mt-5">
-                                <Card
-                                    className="full-background"
-                                    data-animation="zooming"
-                                    style={{
-                                        background:
-                                            "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                    }}
-                                >
-                                    <CardBody>
-                                        <h5 className="text-white text-center mb-0 display-4">
-                                            Mantenimiento
-                                        </h5>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Gasistas
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Ascensores
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Mantenimiento Tanques de Agua
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Fumigación
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="12" className="mt-5">
-                                <Card
-                                    className="full-background"
-                                    data-animation="zooming"
-                                    style={{
-                                        background:
-                                            "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                    }}
-                                >
-                                    <CardBody>
-                                        <h5 className="text-white text-center mb-0 display-4">
-                                            Obras y Construcción
-                                        </h5>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Durlock
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Cristaleros
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Carpinteros
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Cortinas Metálicas
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="12" className="mt-5">
-                                <Card
-                                    className="full-background"
-                                    data-animation="zooming"
-                                    style={{
-                                        background:
-                                            "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                    }}
-                                >
-                                    <CardBody>
-                                        <h5 className="text-white text-center mb-0 display-4">
-                                            Diseños y programas
-                                        </h5>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Identity Designer
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Programadores
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Diseñadores Gráficos
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="6">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Diseñadores UI / UX
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="12" className="mt-5">
-                                <Card
-                                    className="full-background"
-                                    data-animation="zooming"
-                                    style={{
-                                        background:
-                                            "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
-                                    }}
-                                >
-                                    <CardBody>
-                                        <h5 className="text-white text-center mb-0 display-4">
-                                            Cursos y Clases
-                                        </h5>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="4">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Profesores Particulares
-                                                (Escolar)
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="4">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Profesores Particulares
-                                                (Universidad)
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
-                            <Col md="4">
-                                <Card className="card-plain bg-white">
-                                    <CardBody>
-                                        <Link href="/registrarse">
-                                            <a className="text-primary">
-                                                Profesores Particulares
-                                                (Idiomas)
-                                            </a>
-                                        </Link>
-                                    </CardBody>
-                                </Card>
-                            </Col>
+                            {this.state.error && (
+                                <Col md="12">
+                                    <Alert color="danger">
+                                        <p className="mb-0">
+                                            Parece que hubo un error tratando de
+                                            cargar las categorias...
+                                        </p>
+                                    </Alert>
+                                </Col>
+                            )}
+                            {this.state.cargando && (
+                                <Col md="12">
+                                    <Alert color="info">
+                                        <div
+                                            className="spinner-border"
+                                            role="status"
+                                        >
+                                            <span className="sr-only">
+                                                Loading...
+                                            </span>
+                                        </div>
+                                    </Alert>
+                                </Col>
+                            )}
+                            {!(this.state.cargando && this.state.error) &&
+                                this.state.subCategories.map(
+                                    (categoria, index) => (
+                                        <React.Fragment key={index}>
+                                            <Col md="12" className="mt-5">
+                                                <Card
+                                                    className="full-background"
+                                                    data-animation="zooming"
+                                                    style={{
+                                                        background:
+                                                            "url('https://demos.creative-tim.com/argon-design-system-pro/assets/img/faces/alejandro-escamilla.jpg')",
+                                                    }}
+                                                >
+                                                    <CardBody>
+                                                        <h5 className="text-white text-center mb-0 display-4">
+                                                            {
+                                                                categoria[0]
+                                                                    .sub_category
+                                                            }
+                                                        </h5>
+                                                    </CardBody>
+                                                </Card>
+                                            </Col>
+                                            {categoria.map((rubro) => (
+                                                <Col md="4" key={rubro.id}>
+                                                    <Card className="card-plain bg-white">
+                                                        <CardBody>
+                                                            <Link href="/registrarse">
+                                                                <a className="text-primary">
+                                                                    {
+                                                                        rubro.line_of_work
+                                                                    }
+                                                                </a>
+                                                            </Link>
+                                                        </CardBody>
+                                                    </Card>
+                                                </Col>
+                                            ))}
+                                        </React.Fragment>
+                                    )
+                                )}
+
                             <h2 className="title text-center display-3 col-lg-12 my-5">
                                 Múltiples medios de Pago
                             </h2>
@@ -530,57 +285,42 @@ export default class Categorias extends React.Component {
                                                 </Alert>
                                             </Col>
                                         )}
-                                        {!this.state.cargando &&
-                                            !this.state.error && (
-                                                <React.Fragment>
-                                                    <h5 className="title display-5 col-lg-12">
-                                                        Rubros Especializados
-                                                    </h5>
-                                                    <ul className="row">
-                                                        {this.state.rubrosEspecializados.map(
-                                                            (rubro) => (
-                                                                <li
-                                                                    className="col-lg-4"
-                                                                    key={
-                                                                        rubro.id
-                                                                    }
-                                                                >
-                                                                    <Link href="/registrarse">
-                                                                        <a className="text-primary">
-                                                                            {
-                                                                                rubro.line_of_work
-                                                                            }
-                                                                        </a>
-                                                                    </Link>
-                                                                </li>
-                                                            )
-                                                        )}
-                                                    </ul>
 
-                                                    <h5 className="title display-5 mt-5 col-lg-12">
-                                                        Rubros Generales
-                                                    </h5>
-                                                    <ul className="row">
-                                                        {this.state.rubrosGenerales.map(
-                                                            (rubro) => (
-                                                                <li
-                                                                    className="col-lg-4"
-                                                                    key={
-                                                                        rubro.id
-                                                                    }
-                                                                >
-                                                                    <Link href="/registrarse">
-                                                                        <a className="text-primary">
-                                                                            {
-                                                                                rubro.line_of_work
-                                                                            }
-                                                                        </a>
-                                                                    </Link>
-                                                                </li>
-                                                            )
-                                                        )}
-                                                    </ul>
-                                                </React.Fragment>
+                                        {!(
+                                            this.state.cargando &&
+                                            this.state.error
+                                        ) &&
+                                            this.state.todosLosRubros.map(
+                                                (categoria, index) => (
+                                                    <React.Fragment key={index}>
+                                                        <h5 className="title display-5 col-lg-12">
+                                                            {
+                                                                categoria[0]
+                                                                    .specialized
+                                                            }
+                                                        </h5>
+                                                        <ul className="row">
+                                                            {categoria.map(
+                                                                (rubro) => (
+                                                                    <li
+                                                                        className="col-lg-4"
+                                                                        key={
+                                                                            rubro.id
+                                                                        }
+                                                                    >
+                                                                        <Link href="/registrarse">
+                                                                            <a className="text-primary">
+                                                                                {
+                                                                                    rubro.line_of_work
+                                                                                }
+                                                                            </a>
+                                                                        </Link>
+                                                                    </li>
+                                                                )
+                                                            )}
+                                                        </ul>
+                                                    </React.Fragment>
+                                                )
                                             )}
                                     </CardBody>
                                 </Card>
@@ -592,5 +332,3 @@ export default class Categorias extends React.Component {
         );
     }
 }
-
-//todo éste bodoque queda asi por ahora, en realidad lo voy a traer todo desde la api asi que queda hardcodeado hasta q lo agregue a la base de datos
