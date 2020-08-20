@@ -1,210 +1,155 @@
-import React from "react";
-import Layout from "../components/Layout";
-
+import { useState } from 'react';
+import Layout from '../components/Layout';
+import useSWR from 'swr';
+import { useForm } from 'react-hook-form';
 import {
-    Row,
-    Col,
-    Container,
-    Card,
-    CardBody,
-    CardHeader,
-    CardFooter,
-    Button,
-} from "reactstrap";
+  Row,
+  Col,
+  Container,
+  Card,
+  CardBody,
+  CardHeader,
+  CardFooter,
+  Button,
+  Alert,
+  Spinner,
+} from 'reactstrap';
 
-export default class ElegirRubro extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            rubrosEspecializados: [],
-            rubrosGenerales: [],
-            noEncontrado: {},
-            cargando: true,
-            success: false,
-            error: false,
-        };
-    }
-    componentDidMount() {
-        this.getLineWorks();
-    }
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-    getLineWorks = async () => {
-        try {
-            await fetch(process.env.NEXT_PUBLIC_API_URL + "/LineWork/index")
-                .then((res) => res.json())
-                .then((data) => {
-                    console.log(data);
-                    // this.setState({
-                    //     rubrosGenerales: data.rubros,
-                    // });
-                    this.separarArray(data.rubros);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        } catch (error) {
-            console.log(error);
-        }
-    };
+const useRubros = () => {
+  const { data, error } = useSWR(process.env.NEXT_PUBLIC_API_URL + '/LineWork/index', fetcher);
+  return {
+    rubros: {
+      especializados: data?.rubros.filter((rubro) => rubro.specialized === 'Rubros Especializados'),
+      generales: data?.rubros.filter((rubro) => rubro.specialized === 'Rubros Generales'),
+      noEspecializado: data?.rubros.filter((rubro) => rubro.specialized === '-----')[0],
+    },
+    isLoading: !data && !error,
+    error: error,
+  };
+};
 
-    separarArray = (arrayRubros) => {
-        let rubrosGenerales = [];
+export default function EelegirRubro() {
+  const { rubros, isLoading, error } = useRubros();
+  const { register, handleSubmit } = useForm();
 
-        let rubrosEspecializados = [];
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
-        let noEncontrado;
-
-        arrayRubros.forEach((rubro) => {
-            if (rubro.specialized === "Rubros Especializados") {
-                rubrosEspecializados.push(rubro);
-            } else if (rubro.specialized === "Rubros Generales") {
-                rubrosGenerales.push(rubro);
-            } else {
-                noEncontrado = rubro;
-            }
-        });
-
-        console.log({
-            noEncontrado,
-            rubrosEspecializados,
-            rubrosGenerales,
-        });
-
-        this.setState({
-            rubrosEspecializados,
-            rubrosGenerales,
-            noEncontrado,
-        });
-    };
-
-    render() {
-        return (
-            <Layout title="ReparoAltoque - Elegí tu Rubro">
-                <div className="main bg-gradient-warning">
-                    <Container className="pt-8" style={{ minHeight: "100vh" }}>
-                        <Row className="justify-content-center">
-                            <Col md="10">
-                                <Card>
-                                    <CardHeader>
-                                        <h4 className="title display-4 mb-0">
-                                            Elegí a que rubro de trabajo
-                                            pertenecés
-                                        </h4>
-                                    </CardHeader>
-                                    <CardBody className="row">
-                                        {this.state.rubrosEspecializados && (
-                                            <React.Fragment>
-                                                <h5 className="title display-5 text-center my-4 col-lg-12">
-                                                    <u>Rubros Especializados</u>
-                                                </h5>
-                                                {this.state.rubrosEspecializados.map(
-                                                    (rubro) => (
-                                                        <Col
-                                                            md="4"
-                                                            key={rubro.id}
-                                                        >
-                                                            <div className="custom-control custom-radio mb-3">
-                                                                <input
-                                                                    type="radio"
-                                                                    id={
-                                                                        rubro.id
-                                                                    }
-                                                                    className="custom-control-input"
-                                                                />
-                                                                <label
-                                                                    className="custom-control-label"
-                                                                    htmlFor={
-                                                                        rubro.id
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        rubro.line_of_work
-                                                                    }
-                                                                </label>
-                                                            </div>
-                                                        </Col>
-                                                    )
-                                                )}
-                                            </React.Fragment>
-                                        )}
-                                        {this.state.rubrosGenerales && (
-                                            <React.Fragment>
-                                                <h5 className="title display-5 text-center my-4 col-lg-12">
-                                                    <u>Rubros Generales</u>
-                                                </h5>
-                                                {this.state.rubrosGenerales.map(
-                                                    (rubro) => (
-                                                        <Col
-                                                            md="4"
-                                                            key={rubro.id}
-                                                        >
-                                                            <div className="custom-control custom-radio mb-3">
-                                                                <input
-                                                                    type="radio"
-                                                                    id={
-                                                                        rubro.id
-                                                                    }
-                                                                    className="custom-control-input"
-                                                                />
-                                                                <label
-                                                                    className="custom-control-label"
-                                                                    htmlFor={
-                                                                        rubro.id
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        rubro.line_of_work
-                                                                    }
-                                                                </label>
-                                                            </div>
-                                                        </Col>
-                                                    )
-                                                )}
-                                            </React.Fragment>
-                                        )}
-
-                                        {this.state.noEncontrado && (
-                                            <Col
-                                                md="12"
-                                                className="text-right mt-5"
-                                            >
-                                                <div className="custom-control custom-radio mb-3">
-                                                    <input
-                                                        type="radio"
-                                                        id={
-                                                            this.state
-                                                                .noEncontrado.id
-                                                        }
-                                                        className="custom-control-input"
-                                                    />
-                                                    <label
-                                                        className="custom-control-label"
-                                                        htmlFor={
-                                                            this.state
-                                                                .noEncontrado.id
-                                                        }
-                                                    >
-                                                        {
-                                                            this.state
-                                                                .noEncontrado
-                                                                .line_of_work
-                                                        }
-                                                    </label>
-                                                </div>
-                                            </Col>
-                                        )}
-                                    </CardBody>
-                                    <CardFooter className="text-right">
-                                        <Button color="success">
-                                            Continuar
-                                        </Button>
-                                    </CardFooter>
-                                </Card>
+  return (
+    <Layout title="ReparoAltoque - Elegí tu Rubro">
+      <div className="main bg-gradient-warning">
+        <Container className="pt-8 pb-4" style={{ minHeight: '100vh' }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Row className="justify-content-center">
+              <Col md="10">
+                <Card>
+                  <CardHeader>
+                    <h4 className="title display-4 mb-0">
+                      Elegí a que rubro de trabajo pertenecés
+                    </h4>
+                  </CardHeader>
+                  <CardBody>
+                    <Row>
+                      {isLoading && (
+                        <Col md="12">
+                          <Alert color="info" fade>
+                            <span className="alert-inner--icon">
+                              <Spinner />
+                            </span>
+                            <span className="alert-inner--text">
+                              <strong>Cargando</strong>
+                            </span>
+                          </Alert>
+                        </Col>
+                      )}
+                      {error && (
+                        <Col md="12">
+                          <Alert color="danger" fade>
+                            Ocurrió un error al cargar la lista de rubros...
+                          </Alert>
+                        </Col>
+                      )}
+                    </Row>
+                    {!isLoading && !error && (
+                      <>
+                        <Row>
+                          <h5 className="title display-5 text-center my-4 col-lg-12">
+                            <u>Rubros Especializados</u>
+                          </h5>
+                          {rubros.especializados.map((rubro) => (
+                            <Col md="4" key={rubro.id}>
+                              <div className="custom-control custom-checkbox mb-3">
+                                <input
+                                  name={rubro.id}
+                                  className="custom-control-input"
+                                  id={rubro.id}
+                                  type="checkbox"
+                                  ref={register}
+                                />
+                                <label className="custom-control-label" htmlFor={rubro.id}>
+                                  {rubro.line_of_work}
+                                </label>
+                              </div>
                             </Col>
+                          ))}
                         </Row>
-                    </Container>
-                </div>
-            </Layout>
-        );
-    }
+                        <Row>
+                          <h5 className="title display-5 text-center my-4 col-lg-12">
+                            <u>Rubros Generales</u>
+                          </h5>
+                          {rubros.generales.map((rubro) => (
+                            <Col md="4" key={rubro.id}>
+                              <div className="custom-control custom-checkbox mb-3">
+                                <input
+                                  name={rubro.id}
+                                  className="custom-control-input"
+                                  id={rubro.id}
+                                  type="checkbox"
+                                  ref={register}
+                                />
+                                <label className="custom-control-label" htmlFor={rubro.id}>
+                                  {rubro.line_of_work}
+                                </label>
+                              </div>
+                            </Col>
+                          ))}
+                        </Row>
+                        {rubros.noEspecializado && (
+                          <Row>
+                            <Col className="text-right mt-5">
+                              <div className="custom-control custom-checkbox mb-3">
+                                <input
+                                  name={rubros.noEspecializado.id}
+                                  className="custom-control-input"
+                                  id={rubros.noEspecializado.id}
+                                  type="checkbox"
+                                  ref={register}
+                                />
+                                <label
+                                  className="custom-control-label"
+                                  htmlFor={rubros.noEspecializado.id}
+                                >
+                                  {rubros.noEspecializado.line_of_work}
+                                </label>
+                              </div>
+                            </Col>
+                          </Row>
+                        )}
+                      </>
+                    )}
+                  </CardBody>
+                  <CardFooter className="text-right">
+                    {!error && !isLoading && <Button color="success">Continuar</Button>}
+                  </CardFooter>
+                </Card>
+              </Col>
+            </Row>
+          </form>
+        </Container>
+      </div>
+    </Layout>
+  );
 }

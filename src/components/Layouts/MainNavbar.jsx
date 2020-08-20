@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Collapse,
   Navbar,
@@ -13,10 +13,10 @@ import {
   DropdownItem,
   Row,
   Col,
-} from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import Link from "next/link";
+import Link from 'next/link';
 import { useUser } from '../../context/UserContext';
 import { signOut } from '../../firebase';
 
@@ -31,15 +31,11 @@ export default function MainNavbar() {
         dark
         expand="lg"
         className="fixed-top px-5 py-2"
-        style={{ background: "#1a73e8" }}
+        style={{ background: '#1a73e8' }}
       >
         <NavbarBrand href="/">Home</NavbarBrand>
         <NavbarToggler onClick={() => setIsOpen(!isOpen)} />
-        <Collapse
-          isOpen={isOpen}
-          navbar
-          className="justify-content-end"
-        >
+        <Collapse isOpen={isOpen} navbar className="justify-content-end">
           <div className="navbar-collapse-header">
             <Row>
               <Col className="collapse-brand" xs="6">
@@ -66,9 +62,7 @@ export default function MainNavbar() {
           <Nav navbar>
             <NavItem className="my-auto">
               <Link href="/trabajadores">
-                <a className="btn-link nav-link">
-                  Trabajadores
-                </a>
+                <a className="btn-link nav-link">Trabajadores</a>
               </Link>
             </NavItem>
             <NavItem className="my-auto">
@@ -91,22 +85,25 @@ export default function MainNavbar() {
             )}
 
             <UncontrolledDropdown nav inNavbar className="my-auto">
-              <DropdownToggle nav caret className="py-0">
-                {
-                  user ? (
-                    <>
-                      <span className="mr-2 font-weight-bold">{user?.displayName || user?.email}</span>
-                      <img
-                        src={user.photoURL || "https://www.pngitem.com/pimgs/m/108-1083736_transparent-discord-icon-png-discord-profile-png-download.png"}
-                        width="40"
-                        height="40"
-                        className="rounded-circle"
-                      />
-                    </>
-                  ) : (
-                      "Ingresar / Registrarse"
-                    )
-                }
+              <DropdownToggle nav caret className={user ? 'py-0' : ''}>
+                {user ? (
+                  <>
+                    <span className="mr-2 font-weight-bold">
+                      {user?.displayName || user?.email}
+                    </span>
+                    <img
+                      src={
+                        user.photoURL ||
+                        'https://www.pngitem.com/pimgs/m/108-1083736_transparent-discord-icon-png-discord-profile-png-download.png'
+                      }
+                      width="40"
+                      height="40"
+                      className="rounded-circle"
+                    />
+                  </>
+                ) : (
+                  'Ingresar / Registrarse'
+                )}
               </DropdownToggle>
 
               <DropdownMenu right className="text-default">
@@ -124,13 +121,11 @@ export default function MainNavbar() {
                     </Link>
                   </>
                 )}
-                {
-                  user && (
-                    <DropdownItem onClick={() => signOut()}>
-                      Cerrar sesión
-                    </DropdownItem>
-                  )
-                }
+                {user && (
+                  <DropdownItem onClick={() => signOut()}>
+                    Cerrar sesión
+                  </DropdownItem>
+                )}
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
