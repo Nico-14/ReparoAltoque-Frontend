@@ -76,9 +76,7 @@ export default function MainNavbar() {
                 <Link href="/favoritos">
                   <a className="btn-link nav-link">
                     <FontAwesomeIcon icon="heart" />
-                    <span className="nav-link-inner--text d-lg-none">
-                      Favoritos
-                    </span>
+                    <span className="nav-link-inner--text d-lg-none">Favoritos</span>
                   </a>
                 </Link>
               </NavItem>
@@ -121,11 +119,7 @@ export default function MainNavbar() {
                     </Link>
                   </>
                 )}
-                {user && (
-                  <DropdownItem onClick={() => signOut()}>
-                    Cerrar sesión
-                  </DropdownItem>
-                )}
+                {user && <DropdownItem onClick={() => signOut()}>Cerrar sesión</DropdownItem>}
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>

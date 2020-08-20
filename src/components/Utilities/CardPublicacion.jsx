@@ -1,24 +1,10 @@
 import React from 'react';
 
-import {
-  Col,
-  Card,
-  CardImg,
-  CardBody,
-  CardText,
-  CardTitle,
-  Button,
-} from 'reactstrap';
+import { Col, Card, CardImg, CardBody, CardText, CardTitle, Button } from 'reactstrap';
 
 import StarsVote from './StarsVote';
 
-export default function CardPublicación({
-  urlImg,
-  titulo,
-  nombre,
-  raitings,
-  idPost,
-}) {
+export default function CardPublicación({ urlImg, titulo, nombre, raitings, idPost }) {
   return (
     <Col md="2" className="d-inline mb-4" style={{ minWidth: '15rem' }}>
       <style jsx>{`
@@ -31,9 +17,7 @@ export default function CardPublicación({
         }
       `}</style>
       <Card className="p-3 m-0 custom-border h-100">
-        {urlImg && (
-          <CardImg alt="..." src={urlImg} top className="mb-2 custom-border" />
-        )}
+        {urlImg && <CardImg alt="..." src={urlImg} top className="mb-2 custom-border" />}
         <CardBody className="px-0 py-1 d-flex flex-column">
           <CardTitle>
             <h6 className="h6 ">{titulo}</h6>
