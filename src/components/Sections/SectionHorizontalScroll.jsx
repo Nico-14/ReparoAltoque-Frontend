@@ -30,6 +30,7 @@ export default function SectionHorizontalScroll({
                                 raitings={publicacion.current_average_ratings}
                                 idPost={publicacion.post_id}
                                 key={publicacion.post_id}
+                                altura="h-100"
                             />
                         ))}
                 </div>
