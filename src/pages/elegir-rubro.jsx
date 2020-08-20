@@ -68,7 +68,7 @@ export default function EelegirRubro() {
                       {error && (
                         <Col md="12">
                           <Alert color="danger" fade>
-                            Ocurrió un error al cargar la lista de rubros...
+                            Hubo un error al cargar la lista de rubros...
                           </Alert>
                         </Col>
                       )}
