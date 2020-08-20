@@ -81,12 +81,13 @@ export default function EelegirRubro() {
                           </h5>
                           {rubros.especializados.map((rubro) => (
                             <Col md="4" key={rubro.id}>
-                              <div className="custom-control custom-checkbox mb-3">
+                              <div className="custom-control custom-radio mb-3">
                                 <input
-                                  name={rubro.id}
+                                  name="rubro"
                                   className="custom-control-input"
                                   id={rubro.id}
-                                  type="checkbox"
+                                  value={rubro.id}
+                                  type="radio"
                                   ref={register}
                                 />
                                 <label className="custom-control-label" htmlFor={rubro.id}>
@@ -102,12 +103,13 @@ export default function EelegirRubro() {
                           </h5>
                           {rubros.generales.map((rubro) => (
                             <Col md="4" key={rubro.id}>
-                              <div className="custom-control custom-checkbox mb-3">
+                              <div className="custom-control custom-radio mb-3">
                                 <input
-                                  name={rubro.id}
+                                  name="rubro"
                                   className="custom-control-input"
                                   id={rubro.id}
-                                  type="checkbox"
+                                  type="radio"
+                                  value={rubro.id}
                                   ref={register}
                                 />
                                 <label className="custom-control-label" htmlFor={rubro.id}>
@@ -120,12 +122,13 @@ export default function EelegirRubro() {
                         {rubros.noEspecializado && (
                           <Row>
                             <Col className="text-right mt-5">
-                              <div className="custom-control custom-checkbox mb-3">
+                              <div className="custom-control custom-radio mb-3">
                                 <input
-                                  name={rubros.noEspecializado.id}
+                                  name="rubro"
                                   className="custom-control-input"
                                   id={rubros.noEspecializado.id}
-                                  type="checkbox"
+                                  type="radio"
+                                  value={rubros.noEspecializado.id}
                                   ref={register}
                                 />
                                 <label
