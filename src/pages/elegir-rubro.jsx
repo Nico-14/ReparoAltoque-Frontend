@@ -14,6 +14,8 @@ import {
   Alert,
   Spinner,
 } from 'reactstrap';
+import { useUser } from '../context/UserContext';
+import { useRouter } from 'next/router';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -31,11 +33,39 @@ const useRubros = () => {
 };
 
 export default function EelegirRubro() {
+  const router = useRouter();
+  const user = useUser();
   const { rubros, isLoading, error } = useRubros();
   const { register, handleSubmit } = useForm();
+  const [isFetching, setIsFetching] = useState(false);
 
   const onSubmit = (data) => {
-    console.log(data);
+    if (data?.rubro) setIsFetching(true);
+    fetch(process.env.NEXT_PUBLIC_API_URL + '/User/setLineWork', {
+      method: 'post',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        idFirebase: user.uid, //éstos 4 puntos son obligatorios
+        email: user.email,
+        lineOfWork: parseInt(data.rubro),
+      }),
+    })
+      .then(async (res) => {
+        if (res.ok) return res.json();
+        res = await res.json();
+        throw new Error(res?.message);
+      })
+      .then(() => {
+        router.push('/');
+        setIsFetching(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsFetching(false);
+      });
   };
 
   return (
@@ -53,18 +83,19 @@ export default function EelegirRubro() {
                   </CardHeader>
                   <CardBody>
                     <Row>
-                      {isLoading && (
-                        <Col md="12">
-                          <Alert color="info" fade>
-                            <span className="alert-inner--icon">
-                              <Spinner />
-                            </span>
-                            <span className="alert-inner--text">
-                              <strong>Cargando</strong>
-                            </span>
-                          </Alert>
-                        </Col>
-                      )}
+                      {isLoading ||
+                        (isFetching && (
+                          <Col md="12">
+                            <Alert color="info" fade>
+                              <span className="alert-inner--icon">
+                                <Spinner />
+                              </span>
+                              <span className="alert-inner--text">
+                                <strong>Cargando</strong>
+                              </span>
+                            </Alert>
+                          </Col>
+                        ))}
                       {error && (
                         <Col md="12">
                           <Alert color="danger" fade>
@@ -145,7 +176,11 @@ export default function EelegirRubro() {
                     )}
                   </CardBody>
                   <CardFooter className="text-right">
-                    {!error && !isLoading && <Button color="success">Continuar</Button>}
+                    {!error && !isLoading && (
+                      <Button color="success" disabled={isLoading || isFetching}>
+                        Continuar
+                      </Button>
+                    )}
                   </CardFooter>
                 </Card>
               </Col>
