@@ -27,9 +27,13 @@ export const UserProvider = ({ children }) => {
         fetch(process.env.NEXT_PUBLIC_API_URL + '/User/index/' + newUser.uid)
           .then((res) => res.json())
           .then((res) => {
-            dispatch({ type: 'SET_USER', payload: newUser });
-            if (res?.user?.type_of_user === 'professional' && res?.user?.line_of_work_id === 1) {
-              router.push('/elegir-rubro');
+            if (!res?.user && Math.floor(Date.now() / 1000) - newUser.creationTime > 3600) {
+              //Borrar el usuario si no existe en el backend y pasó más de una hora desde la creación en firebase
+            } else {
+              dispatch({ type: 'SET_USER', payload: newUser });
+              if (res?.user?.type_of_user === 'professional' && res?.user?.line_of_work_id === 1) {
+                router.push('/elegir-rubro');
+              }
             }
           });
       } else dispatch({ type: 'SET_USER', payload: null });

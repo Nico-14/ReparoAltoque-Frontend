@@ -20,7 +20,9 @@ import { useRouter } from 'next/router';
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const useRubros = () => {
-  const { data, error } = useSWR(process.env.NEXT_PUBLIC_API_URL + '/LineWork/index', fetcher);
+  const { data, error } = useSWR(process.env.NEXT_PUBLIC_API_URL + '/LineWork/index', fetcher, {
+    revalidateOnFocus: false,
+  });
   return {
     rubros: {
       especializados: data?.rubros.filter((rubro) => rubro.specialized === 'Rubros Especializados'),

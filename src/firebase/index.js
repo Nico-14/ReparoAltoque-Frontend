@@ -24,6 +24,7 @@ const mapUser = (user) => ({
   email: user.email,
   uid: user.uid,
   photoURL: user.photoURL,
+  creationTime: Math.floor(new Date(user.metadata.creationTime).getTime() / 1000),
 });
 
 /**

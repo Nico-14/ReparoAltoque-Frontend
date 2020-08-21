@@ -17,7 +17,7 @@ export default function Registrarse() {
     createAccount(data.type, data.email, data.password, data.name)
       .then((user) => {
         tempUser = user;
-        let endpointRegitrarUsuario = '/User/create/' + data.userType; // "professional" si es un prefesional, o "client" si es un cliente
+        let endpointRegitrarUsuario = '/User/createf/' + data.userType; // "professional" si es un prefesional, o "client" si es un cliente
         //la U de User tiene que estar en mayúscula si o si
         return fetch(process.env.NEXT_PUBLIC_API_URL + endpointRegitrarUsuario, {
           method: 'post',
