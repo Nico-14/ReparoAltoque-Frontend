@@ -6,19 +6,6 @@ import SectionIniciar from "../components/Sections/SectionIniciar";
 import SectionHorizontalScroll from "../components/Sections/SectionHorizontalScroll";
 import SectionCategorias from "../components/Sections/SectionCategorias";
 
-// reactstrap components
-import {
-    Button,
-    Container,
-    Row,
-    Col,
-    FormGroup,
-    InputGroup,
-    InputGroupText,
-    InputGroupAddon,
-    Input,
-} from "reactstrap";
-
 export default function Home({ posts }) {
     //mismo que en el form registro, pero es una petición get
     //la url base + /Posts/showWelcome
@@ -34,29 +21,30 @@ export default function Home({ posts }) {
                 :global(.page-header.skew-separator:after) {
                     background: #fff !important;
                     z-index: 1 !important;
-                }border: none;
                 }
             `}</style>
             <Layout>
                 <div className="main" style={{ minHeight: "100vh" }}>
-                    <SectionBuscar modeloSeccionBuscar={2} />
-                    <SectionCategorias />
+                    <section style={{ zIndex: 40, marginTop: -50 }}>
+                        <SectionBuscar protitpo={1} />
+                        <SectionCategorias />
 
-                    <SectionWelcome />
+                        <SectionWelcome />
 
-                    <SectionHorizontalScroll
-                        titulo="Trabajos a distancia que recomendamos"
-                        arrayPublicaciones={posts?.aDistanciaFiltrados}
-                        bgColor="bg-secondary"
-                    />
+                        <SectionHorizontalScroll
+                            titulo="Trabajos a distancia que recomendamos"
+                            arrayPublicaciones={posts?.aDistanciaFiltrados}
+                            bgColor="bg-secondary"
+                        />
 
-                    <SectionHorizontalScroll
-                        titulo="Trabajos a domicilio que recomendamos"
-                        arrayPublicaciones={posts?.presencialesFiltrados}
-                        bgColor="bg-white mt-3"
-                    />
+                        <SectionHorizontalScroll
+                            titulo="Trabajos a domicilio que recomendamos"
+                            arrayPublicaciones={posts?.presencialesFiltrados}
+                            bgColor="bg-white mt-3"
+                        />
 
-                    <SectionIniciar />
+                        <SectionIniciar />
+                    </section>
                 </div>
             </Layout>
         </React.Fragment>
